@@ -73,73 +73,73 @@ class Link(Sprite):
             for i in range(40):
                 self.images.append(self.model.getView().loadImage("images/link" + i + ".png"))
 
-        g.drawImage(self.images[self.direction], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY())
+        g.drawImage(self.images[self.direction], self.x + self.model.getScrollPosX(),
+                    self.y + self.model.getScrollPosY())
 
         # Handle link's animation loop
-        if self.direction == 9 or (self.direction % 10) == 9: # If direction is 9, 19, 29, or 39 then reset link back to first direction stance else increment the animation
+        if self.direction == 9 or (
+                self.direction % 10) == 9:  # If direction is 9, 19, 29, or 39 then reset link back to first direction stance else increment the animation
             self.direction -= 9
-        elif self.model.getView().getController().getKeyRight() or self.model.getView().getController().getKeyLeft() or self.model.getView().getController().getKeyUp() or self.model.getView().getController().getKeyDown(): # Increment direction image if keys are down
+        elif self.model.getView().getController().getKeyRight() or self.model.getView().getController().getKeyLeft() or self.model.getView().getController().getKeyUp() or self.model.getView().getController().getKeyDown():  # Increment direction image if keys are down
             self.direction += 1
         else:
             # Reset to idle positions if no keys are down
             self.direction -= self.direction % 10;
 
     def update(self):
-    # Handle link's movement
-    # Images 0 - 9 are down, 10 - 19 are left, 20 - 29 are up, 30 - 39 are right
-    # console.log(self.model.getView().getController().getKeyRight())
-    if (self.model.getView().getController().getKeyRight()) {
-    if (self.direction < 30) {
-    self.direction = 30;
-    }
-    self.x = self.x + self.speed
-    } else if (self.model.getView().getController().getKeyLeft()) {
-    if (self.direction < 10 | | self.direction > 19) {
-    self.direction = 10;
-    }
-    self.x = self.x - self.speed
-    } else if (self.model.getView().getController().getKeyUp()) {
-    if (self.direction < 20 | | self.direction > 29) {
-    self.direction = 20;
-    }
-    self.y = self.y - self.speed
-    } else if (self.model.getView().getController().getKeyDown()) {
-    if (self.direction > 9) {
-    self.direction = 0;
-    }
-    self.y = self.y + self.speed
-    }
+        # Handle link's movement
+        # Images 0 - 9 are down, 10 - 19 are left, 20 - 29 are up, 30 - 39 are right
+        # console.log(self.model.getView().getController().getKeyRight())
+        if self.model.getView().getController().getKeyRight():
+            if self.direction < 30:
+                self.direction = 30
+            self.x = self.x + self.speed
+        elif self.model.getView().getController().getKeyLeft():
+            if self.direction < 10 or self.direction > 19:
+                self.direction = 10
+            self.x = self.x - self.speed
+        elif self.model.getView().getController().getKeyUp():
+            if self.direction < 20 | | self.direction > 29:
+                self.direction = 20
+            self.y = self.y - self.speed
+        } else if (self.model.getView().getController().getKeyDown()) {
+            if (self.direction > 9) {
+            self.direction = 0;
+            self.y = self.y + self.speed
+        }
 
-    if (!self.model.getScrolling()) {// Debounce to ensure scrolling doesn't glitch back and forth
-    if (self.x + self.width >= 700 & & self.model.getScrollDestX() != -700) {// Scroll right
-    self.model.getView().getController().scrollRight();
-    } else if (self.x + self.width < 700 & & self.model.getScrollDestX() != 0) {// Scroll left
-    self.model.getView().getController().scrollLeft();
-    } else if (self.y + self.height >= 500 & & self.model.getScrollDestY() != -500) {// Scroll down
-    self.model.getView().getController().scrollDown();
-    } else if (self.y + self.height < 500 & & self.model.getScrollDestY() != 0) {// Scroll up
-    self.model.getView().getController().scrollUp();
-    }
-    }
+        if (!self.model.getScrolling()) {// Debounce to ensure scrolling doesn't glitch back and forth
+        if (self.x + self.width >= 700 & & self.model.getScrollDestX() != -700) {// Scroll right
+        self.model.getView().getController().scrollRight();
+        } else if (self.x + self.width < 700 & & self.model.getScrollDestX() != 0) {// Scroll left
+        self.model.getView().getController().scrollLeft();
+        } else if (self.y + self.height >= 500 & & self.model.getScrollDestY() != -500) {// Scroll down
+        self.model.getView().getController().scrollDown();
+        } else if (self.y + self.height < 500 & & self.model.getScrollDestY() != 0) {// Scroll up
+        self.model.getView().getController().scrollUp();
+        }
+        }
 
-    for (let i = 0; i < self.model.getSprites().length; i++) {// Iterate over the sprites checking for collisions
-    if (self.model.getSprites()[i].isLink()) // Do not allow link to collide with himself
-    continue;
-    if (self.model.doesCollide(self, self.model.getSprites()[i])) {
-    let p = undefined
-    if (self.model.getSprites()[i].isBrick())
-    self.brickCollisionDetected(self.model.getSprites()[i]);
-    else if (self.model.getSprites()[i].isPot()) {
-    p = self.model.getSprites()[i];
-    p.linkCollisionDetected(self);
-    }
-    }
-    }
-    return true;
-    }
+        for (let i = 0; i < self.model.getSprites().length; i++) {// Iterate over the sprites checking for collisions
+        if (self.model.getSprites()[i].isLink()) // Do not allow link to collide with himself
+        continue;
+        if (self.model.doesCollide(self, self.model.getSprites()[i])) {
+        let p = undefined
+        if (self.model.getSprites()[i].isBrick())
+        self.brickCollisionDetected(self.model.getSprites()[i]);
+        else if (self.model.getSprites()[i].isPot()) {
+        p = self.model.getSprites()[i];
+        p.linkCollisionDetected(self);
+        }
+        }
+        }
+        return true;
+        }
 
-brickCollisionDetected(b)
-{ // Fix
+    brickCollisionDetected(b)
+    { // Fix
+
+
 link
 's position if he is colliding with a brick sprite
 if (self.y + self.height >= b.getY() & & self.pY <= b.getY() & & self.direction <= 9) // Toe collision
