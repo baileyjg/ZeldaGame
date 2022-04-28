@@ -204,135 +204,74 @@ class Pot(Sprite):
         self.collisionOffset = 12
         self.speed = 15
 
-    update()
-    { // Communicates
-    to
-    model
-    when
-    to
-    remove
-    the
-    pot
-    for (let i = 0; i < self.model.getSprites().length; i++) {
-    let b = undefined;
-    if (self.model.getSprites()[i].isBrick() & & self.model.doesCollide(self, self.model.getSprites()[i])) {
-    b = self.model.getSprites()[i];
-    switch(self.direction) {
-    case 0: //
-    Do
-    nothing
-    break;
-    case
-    1:
-    self.x = b.getX() + b.getWidth() + self.collisionOffset;
-    break;
-    case
-    2:
-    self.x = b.getX() - self.width - self.collisionOffset;
-    break;
-    case
-    3:
-    self.y = b.getY() + b.getHeight() + self.collisionOffset;
-    break;
-    case
-    4:
-    self.y = b.getY() - self.height - self.collisionOffset;
-    break;
-    default:
-    if (self.model.getController().debug) console.log("Invalid brick/pot collision!");
-    break;
-    }
-    self.broken = true;
-    break;
-    }
-    }
-    if (self.broken) {
-    self.removeDelay--;
-    if (self.removeDelay <= 0) {
-    return false;
-    }
-    }
-    if (self.direction != 0) {
-    switch(self.direction) {
-    case
-    1: self.x -= self.speed;
-    break;
-    case
-    2: self.x += self.speed;
-    break;
-    case
-    3: self.y -= self.speed;
-    break;
-    case
-    4: self.y += self.speed;
-    break;
-    case
-    0: // Do
-    nothing
-    break;
-    default:
-    if (self.model.getController().debug) console.log("Invalid pot direction!");
-    break;
-    }
-    }
-    return true;
-    }
+    def update(self): # Communicates to model when to remove the pot
+        for i in range(len(self.model.getSprites())):
+            b = None
+            if self.model.getSprites()[i].isBrick() and self.model.doesCollide(self, self.model.getSprites()[i]):
+                b = self.model.getSprites()[i]
+                if self.direction == 0: # Do nothing
+                    pass
+                elif self.direction == 1:
+                    self.x = b.getX() + b.getWidth() + self.collisionOffset
+                elif self.direction == 2:
+                    self.x = b.getX() - self.width - self.collisionOffset
+                elif self.direction == 3:
+                    self.y = b.getY() + b.getHeight() + self.collisionOffset
+                elif self.direction == 4:
+                    self.y = b.getY() - self.height - self.collisionOffset
+                elif self.model.getController().debug:
+                    print("Invalid brick/pot collision!")
+                self.broken = True
+                break
 
-    draw(g)
-    {
-    if (self.images[0] == undefined) {
-    self.images[0] = self.model.getView().loadImage("images/pot.png");
-    self.images[1] = self.model.getView().loadImage("images/pot_broken.png");
-    }
+        if self.broken:
+            self.removeDelay -= 1
+            if self.removeDelay <= 0:
+                return False
+        if self.direction != 0:
+            if self.direction == 1:
+                self.x -= self.speed
+            elif self.direction == 2:
+                self.x += self.speed
+            elif self.direction == 3:
+                self.y -= self.speed
+            elif self.direction == 4:
+                self.y += self.speed
+            elif self.model.getController().debug:
+                print("Invalid pot direction!")
+        return True
 
-    if (self.broken) {// Draw the pot depending on broken status
-    g.drawImage(self.images[1], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width, self.height);
-    } else {
-    g.drawImage(self.images[0], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width, self.height);
-    }
+    def draw(self, g):
+        if self.images[0] is None:
+            self.images[0] = self.model.getView().loadImage("images/pot.png")
+            self.images[1] = self.model.getView().loadImage("images/pot_broken.png")
 
-    }
+        if self.broken: # Draw the pot depending on broken status
+            g.drawImage(self.images[1], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width, self.height);
+        else:
+            g.drawImage(self.images[0], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width, self.height)
 
-    linkCollisionDetected(l)
-    { // Determine
-    where
-    the
-    pot
-    should
-    slide
-    based
-    on
-    link
-    collision
-    if (self.direction == 0 & & !self.broken) {// Check if the pot has already been collided with or broken by a boomerang
-    if (l.getDirection() <= 9) // Toe collision
-    self.direction = 4;
-    else if (l.getDirection() >= 10 & & l.getDirection() <= 19) // Left collision
-    self.direction = 1;
-    else if (l.getDirection() >= 20 & & l.getDirection() <= 29) // Head collision
-    self.direction = 3;
-    else if (l.getDirection() >= 30) // Right collision
-    self.direction = 2;
-    }
-    }
+    def linkCollisionDetected(self, l): # Determine where the pot should slide based on link collision
+        if self.direction == 0 and !self.broken: # Check if the pot has already been collided with or broken by a boomerang
+            if l.getDirection() <= 9: # Toe collision
+                self.direction = 4
+            elif l.getDirection() >= 10 and l.getDirection() <= 19: # Left collision
+                self.direction = 1
+            elif l.getDirection() >= 20 and l.getDirection() <= 29: # Head collision
+                self.direction = 3
+            elif l.getDirection() >= 30: # Right collision
+                self.direction = 2
 
-    existingPot(x, y)
-    { // Checks if the
-    pot
-    exists
-    if (self.x == x & & self.y == y) return true;
-    return false;
-    }
+    def existingPot(self, x, y): # Checks if a pot exists
+        if self.x == x and self.y == y:
+            return True
+        return False
 
-    toString()
-    {
-    return "Pot (x, y, width, height) = (" + x + ", " + y + ", " + width + ", " + height + ")";
-    }
+    def toString(self):
+        return "Pot (x, y, width, height) = (" + x + ", " + y + ", " + width + ", " + height + ")"
 
-    isPot()
-    {
-    return true;
-    }
+    def isPot(self):
+        return True
 
     # Setters
     def setBroken(self, b):
