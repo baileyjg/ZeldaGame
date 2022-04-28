@@ -7,10 +7,10 @@ from time import sleep
 
 class Sprite:
     def __init__(self, x, y):
-        self.x = x;
-        self.y = y;
-        self.width = 0;
-        self.height = 0;
+        self.x = x
+        self.y = y
+        self.width = 0
+        self.height = 0
 
     # Abstract methods
     def draw(self, g):
@@ -50,7 +50,7 @@ class Sprite:
 
     # Setters
     def setX(self, x):
-        self.x = x;
+        self.x = x
 
     def setY(self, y):
         self.y = y
@@ -107,18 +107,18 @@ class Link(Sprite):
                 self.direction = 0
                 self.y = self.y + self.speed
 
-        if not(self.model.getScrolling()): # Debounce to ensure scrolling doesn't glitch back and forth
-            if self.x + self.width >= 700 and self.model.getScrollDestX() != -700: # Scroll right
+        if not (self.model.getScrolling()):  # Debounce to ensure scrolling doesn't glitch back and forth
+            if self.x + self.width >= 700 and self.model.getScrollDestX() != -700:  # Scroll right
                 self.model.getView().getController().scrollRight()
-            elif self.x + self.width < 700 and self.model.getScrollDestX() != 0: # Scroll left
+            elif self.x + self.width < 700 and self.model.getScrollDestX() != 0:  # Scroll left
                 self.model.getView().getController().scrollLeft()
-            elif self.y + self.height >= 500 and self.model.getScrollDestY() != -500: # Scroll down
+            elif self.y + self.height >= 500 and self.model.getScrollDestY() != -500:  # Scroll down
                 self.model.getView().getController().scrollDown()
-            elif self.y + self.height < 500 and self.model.getScrollDestY() != 0: # Scroll up
+            elif self.y + self.height < 500 and self.model.getScrollDestY() != 0:  # Scroll up
                 self.model.getView().getController().scrollUp()
 
-        for i in range(len(self.model.getSprites())): # Iterate over the sprites checking for collisions
-            if self.model.getSprites()[i].isLink(): # Do not allow link to collide with himself
+        for i in range(len(self.model.getSprites())):  # Iterate over the sprites checking for collisions
+            if self.model.getSprites()[i].isLink():  # Do not allow link to collide with himself
                 pass
             if self.model.doesCollide(self, self.model.getSprites()[i]):
                 p = None
@@ -129,14 +129,14 @@ class Link(Sprite):
                     p.linkCollisionDetected(self)
         return True
 
-    def brickCollisionDetected(self, b): # Fix link's position if he is colliding with a brick sprite
-        if self.y + self.height >= b.getY() and self.pY <= b.getY() and self.direction <= 9: # Toe collision
+    def brickCollisionDetected(self, b):  # Fix link's position if he is colliding with a brick sprite
+        if self.y + self.height >= b.getY() and self.pY <= b.getY() and self.direction <= 9:  # Toe collision
             self.setY(b.getY() - self.height - 1)
-        if self.x <= b.getX() + b.getWidth() and self.pX >= b.getX() + b.getWidth() and self.direction <= 19 and self.direction > 9: # Left collision
+        if self.x <= b.getX() + b.getWidth() and self.pX >= b.getX() + b.getWidth() and self.direction <= 19 and self.direction > 9:  # Left collision
             self.setX(b.getX() + b.getWidth() + 1)
-        if self.y <= b.getY() + b.getHeight() and self.pY >= b.getY() + b.getHeight() and self.direction <= 29 and self.direction > 19: # Head collision
+        if self.y <= b.getY() + b.getHeight() and self.pY >= b.getY() + b.getHeight() and self.direction <= 29 and self.direction > 19:  # Head collision
             self.setY(b.getY() + b.getHeight() + 1)
-        if self.x + self.width >= b.getX() and self.pX <= b.getX() and self.direction <= 39 and self.direction > 29: # Right collision
+        if self.x + self.width >= b.getX() and self.pX <= b.getX() and self.direction <= 39 and self.direction > 29:  # Right collision
             self.setX(b.getX() - self.width - 1)
 
     def savePreviousLocation(self):
@@ -147,7 +147,7 @@ class Link(Sprite):
         return "Link (x, y, width, height) = (" + self.x + ", " + self.y + ", " + self.width + ", " + self.height + ")"
 
     def isLink(self):
-        return true
+        return True
 
     # Getters
     def getDirection(self):
@@ -163,6 +163,7 @@ class Link(Sprite):
     def set_direction(self, d):
         self.direction = d
 
+
 class Brick(Sprite):
     def __init__(self, x, y, m):
         super(x, y)
@@ -171,7 +172,7 @@ class Brick(Sprite):
         self.width = 50
         self.height = 50
 
-    def existingBrick(self, x, y): # Checks if the brick exists
+    def existingBrick(self, x, y):  # Checks if the brick exists
         if self.x == x and self.y == y:
             return True
         return False
@@ -180,10 +181,11 @@ class Brick(Sprite):
         # Do nothing
         return True
 
-    def draw(self, g): # Draws the brick
+    def draw(self, g):  # Draws the brick
         if self.image is None:
             self.image = self.model.getView().loadImage("images/brick.jpg")
-        g.drawImage(self.image, self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width, self.height)
+        g.drawImage(self.image, self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width,
+                    self.height)
 
     def toString(self):
         return "Brick (x, y, width, height) = (" + self.x + ", " + self.y + ", " + self.width + ", " + self.height + ")"
@@ -191,8 +193,9 @@ class Brick(Sprite):
     def isBrick(self):
         return True
 
+
 class Pot(Sprite):
-    def __init__(self, x, y, m): # Default constructor
+    def __init__(self, x, y, m):  # Default constructor
         super(x, y)
         self.width = 40
         self.height = 40
@@ -204,12 +207,12 @@ class Pot(Sprite):
         self.collisionOffset = 12
         self.speed = 15
 
-    def update(self): # Communicates to model when to remove the pot
+    def update(self):  # Communicates to model when to remove the pot
         for i in range(len(self.model.getSprites())):
             b = None
             if self.model.getSprites()[i].isBrick() and self.model.doesCollide(self, self.model.getSprites()[i]):
                 b = self.model.getSprites()[i]
-                if self.direction == 0: # Do nothing
+                if self.direction == 0:  # Do nothing
                     pass
                 elif self.direction == 1:
                     self.x = b.getX() + b.getWidth() + self.collisionOffset
@@ -246,23 +249,25 @@ class Pot(Sprite):
             self.images[0] = self.model.getView().loadImage("images/pot.png")
             self.images[1] = self.model.getView().loadImage("images/pot_broken.png")
 
-        if self.broken: # Draw the pot depending on broken status
-            g.drawImage(self.images[1], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width, self.height);
+        if self.broken:  # Draw the pot depending on broken status
+            g.drawImage(self.images[1], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
+                        self.width, self.height)
         else:
-            g.drawImage(self.images[0], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width, self.height)
+            g.drawImage(self.images[0], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
+                        self.width, self.height)
 
-    def linkCollisionDetected(self, l): # Determine where the pot should slide based on link collision
-        if self.direction == 0 and !self.broken: # Check if the pot has already been collided with or broken by a boomerang
-            if l.getDirection() <= 9: # Toe collision
+    def linkCollisionDetected(self, l):  # Determine where the pot should slide based on link collision
+        if self.direction == 0 and not self.broken:  # Check if the pot has already been collided with or broken by a boomerang
+            if l.getDirection() <= 9:  # Toe collision
                 self.direction = 4
-            elif l.getDirection() >= 10 and l.getDirection() <= 19: # Left collision
+            elif l.getDirection() >= 10 and l.getDirection() <= 19:  # Left collision
                 self.direction = 1
-            elif l.getDirection() >= 20 and l.getDirection() <= 29: # Head collision
+            elif l.getDirection() >= 20 and l.getDirection() <= 29:  # Head collision
                 self.direction = 3
-            elif l.getDirection() >= 30: # Right collision
+            elif l.getDirection() >= 30:  # Right collision
                 self.direction = 2
 
-    def existingPot(self, x, y): # Checks if a pot exists
+    def existingPot(self, x, y):  # Checks if a pot exists
         if self.x == x and self.y == y:
             return True
         return False
@@ -277,91 +282,70 @@ class Pot(Sprite):
     def setBroken(self, b):
         self.broken = b
 
-class Boomerang extends Sprite{
-static images =[]
 
-constructor(x, y, d, m){
-super(x, y)
-self.width = 16;
-self.height = 24;
-self.direction = d;
-self.speed = 15
-self.model = m;
-self.image = 0 // Which image is the boomerang currently drawing
-}
+class Boomerang(Sprite):
+    images = []
 
-draw(g) {
-if (self.constructor.images[0] == = undefined) {// Lazy load the boomerang images
-for (let i = 0; i < 4; i++) {
-self.constructor.images[i] = self.model.getView().loadImage("images/boomerang" + i + ".png");
-}
-}
+    def __init__(self, x, y, d, m):
+        super(x, y)
+        self.width = 16
+        self.height = 24
+        self.direction = d
+        self.speed = 15
+        self.model = m
+        self.image = 0  # Which image is the boomerang currently drawing
 
-g.drawImage(self.constructor.images[self.image], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width, self.height);
-}
+    def draw(self, g):
+        if self.images[0] is None:  # Lazy load the boomerang images
+            for i in range(4):
+                self.images[i] = self.model.getView().loadImage("images/boomerang" + str(i) + ".png")
 
-update() {
-if (self.image != 3) // Increment the direction each update to animate the boomerang
-self.image++;
-else
-self.image = 0;
+        g.drawImage(self.images[self.image], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
+                    self.width, self.height)
 
-if (self.direction == 0) // Control how the boomerangs coordinates change depending on direction
-self.x -= self.speed;
-else if (self.direction == 1)
-self.x += self.speed;
-else if (self.direction == 2)
-self.y -= self.speed;
-else if (self.direction == 3)
-self.y += self.speed;
+    def update(self):
+        if self.image != 3: # Increment the direction each update to animate the boomerang
+            self.image += 1
+        else:
+            self.image = 0
 
-for (let i = 0; i < self.model.getSprites().length; i++) {// Check for a boomerang / pot collision
-let p = undefined;
-if (self.model.getSprites()[i].isPot() & & self.model.doesCollide(self, self.model.getSprites()[i])) {
-p = self.model.getSprites()[i];
-p.setBroken(true);
+        if self.direction == 0: # Control how the boomerangs coordinates change depending on direction
+            self.x -= self.speed
+        elif self.direction == 1:
+            self.x += self.speed
+        elif self.direction == 2:
+            self.y -= self.speed
+        elif self.direction == 3:
+            self.y += self.speed
 
+        for (let i = 0; i < self.model.getSprites().length; i++) {// Check for a boomerang / pot collision
+        let p = undefined;
+        if (self.model.getSprites()[i].isPot() & & self.model.doesCollide(self, self.model.getSprites()[i])) {
+        p = self.model.getSprites()[i];
+        p.setBroken(true);
 
-return false;
-} else if (self.model.getSprites()[i].isBrick() & & self.model.doesCollide(self, self.model.getSprites()[
-    i])) {// Brick / boomerang collision
-return false;
-}
-}
-return true;
-}
+        return false;
+        } else if (self.model.getSprites()[i].isBrick() & & self.model.doesCollide(self, self.model.getSprites()[
+            i])) {// Brick / boomerang collision
+        return false;
 
-< !-- @ Override -->
-< !-- Json
-marshal()
-{-->
-< !-- // Do
-nothing, no
-need
-to
-marshal
-boomerangs -->
-< !--
-return null;
--->
-< !--} -->
+        return true;
 
-isBoomerang()
-{
-return true;
-}
+    isBoomerang()
+    {
+    return true;
+    }
 
-toString()
-{
-return "Boomerang (x, y, width, height) = (" + x + ", " + y + ", " + width + ", " + height + ")";
-}
+    toString()
+    {
+    return "Boomerang (x, y, width, height) = (" + x + ", " + y + ", " + width + ", " + height + ")";
+    }
 
-// Setters
-setDirection(d)
-{
-self.direction = d;
-}
-}
+    // Setters
+    setDirection(d)
+    {
+    self.direction = d
+
 
 class Model
     {
