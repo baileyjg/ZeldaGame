@@ -677,341 +677,228 @@ class Model:
         self.sprites.append(self.brick)
         self.brick = Brick(0, 550, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(0, 600, self)
+        self.brick = Brick(0, 600, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(150, 500, self)
+        self.brick = Brick(150, 500, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(300, 500, self)
+        self.brick = Brick(300, 500, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(400, 500, self)
+        self.brick = Brick(400, 500, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(350, 500, self)
+        self.brick = Brick(350, 500, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(550, 500, self)
+        self.brick = Brick(550, 500, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(600, 500, self)
+        self.brick = Brick(600, 500, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(100, 500, self)
+        self.brick = Brick(100, 500, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(50, 500, self)
+        self.brick = Brick(50, 500, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(0, 650, self)
+        self.brick = Brick(0, 650, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(0, 700, self)
+        self.brick = Brick(0, 700, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(0, 750, self)
+        self.brick = Brick(0, 750, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(0, 800, self)
+        self.brick = Brick(0, 800, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(0, 850, self)
+        self.brick = Brick(0, 850, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(0, 900, self)
+        self.brick = Brick(0, 900, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(0, 950, self)
+        self.brick = Brick(0, 950, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(50, 950, self)
+        self.brick = Brick(50, 950, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(100, 950, self)
+        self.brick = Brick(100, 950, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(150, 950, self)
+        self.brick = Brick(150, 950, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(200, 950, self)
+        self.brick = Brick(200, 950, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(250, 950, self)
+        self.brick = Brick(250, 950, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(300, 950, self)
+        self.brick = Brick(300, 950, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(350, 950, self)
+        self.brick = Brick(350, 950, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(400, 950, self)
+        self.brick = Brick(400, 950, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(450, 950, self)
+        self.brick = Brick(450, 950, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(500, 950, self)
+        self.brick = Brick(500, 950, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(300, 550, self)
+        self.brick = Brick(300, 550, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(300, 600, self)
+        self.brick = Brick(300, 600, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(300, 650, self)
+        self.brick = Brick(300, 650, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(300, 700, self)
+        self.brick = Brick(300, 700, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(300, 750, self)
+        self.brick = Brick(300, 750, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(300, 800, self)
+        self.brick = Brick(300, 800, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(650, 650, self)
+        self.brick = Brick(650, 650, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(700, 650, self)
+        self.brick = Brick(700, 650, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1300, 650, self)
+        self.brick = Brick(1300, 650, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1250, 650, self)
+        self.brick = Brick(1250, 650, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1250, 800, self)
+        self.brick = Brick(1250, 800, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1300, 800, self)
+        self.brick = Brick(1300, 800, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1100, 150, self)
+        self.brick = Brick(1100, 150, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1150, 150, self)
+        self.brick = Brick(1150, 150, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1200, 150, self)
+        self.brick = Brick(1200, 150, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1100, 300, self)
+        self.brick = Brick(1100, 300, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1150, 300, self)
+        self.brick = Brick(1150, 300, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1200, 300, self)
+        self.brick = Brick(1200, 300, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1100, 200, self)
+        self.brick = Brick(1100, 200, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1200, 200, self)
+        self.brick = Brick(1200, 200, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1150, 200, self)
+        self.brick = Brick(1150, 200, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1100, 250, self)
+        self.brick = Brick(1100, 250, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1150, 250, self)
+        self.brick = Brick(1150, 250, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(1200, 250, self)
+        self.brick = Brick(1200, 250, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(400, 150, self)
+        self.brick = Brick(400, 150, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(450, 150, self)
+        self.brick = Brick(450, 150, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(500, 150, self)
+        self.brick = Brick(500, 150, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(600, 700, self)
+        self.brick = Brick(600, 700, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(550, 700, self)
+        self.brick = Brick(550, 700, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(500, 700, self)
+        self.brick = Brick(500, 700, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(450, 700, self)
+        self.brick = Brick(450, 700, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(400, 700, self)
+        self.brick = Brick(400, 700, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(350, 700, self)
+        self.brick = Brick(350, 700, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(250, 800, self)
+        self.brick = Brick(250, 800, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(200, 800, self)
+        self.brick = Brick(200, 800, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(150, 800, self)
+        self.brick = Brick(150, 800, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(750, 700, self)
+        self.brick = Brick(750, 700, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(800, 700, self)
+        self.brick = Brick(800, 700, self)
         self.sprites.append(self.brick)
-        self.brick = new
-        Brick(950, 150, self)
+        self.brick = Brick(950, 150, self)
         self.sprites.append(self.brick)
 
         # Create Hardcoded Pots
-        self.pot = new
-        Pot(302, 305, self)
+        self.pot = Pot(302, 305, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(356, 303, self)
+        self.pot = Pot(356, 303, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(300, 349, self)
+        self.pot = Pot(300, 349, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(298, 396, self)
+        self.pot = Pot(298, 396, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(447, 75, self)
+        self.pot = Pot(447, 75, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(453, 224, self)
+        self.pot = Pot(453, 224, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(426, 604, self)
+        self.pot = Pot(426, 604, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(471, 605, self)
+        self.pot = Pot(471, 605, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(521, 603, self)
+        self.pot = Pot(521, 603, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(121, 626, self)
+        self.pot = Pot(121, 626, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(166, 625, self)
+        self.pot = Pot(166, 625, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(119, 676, self)
+        self.pot = Pot(119, 676, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(167, 676, self)
+        self.pot = Pot(167, 676, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(232, 853, self)
+        self.pot = Pot(232, 853, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(231, 900, self)
+        self.pot = Pot(231, 900, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(651, 756, self)
+        self.pot = Pot(651, 756, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(651, 800, self)
+        self.pot = Pot(651, 800, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(944, 588, self)
+        self.pot = Pot(944, 588, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(991, 589, self)
+        self.pot = Pot(991, 589, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(943, 632, self)
+        self.pot = Pot(943, 632, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(996, 635, self)
+        self.pot = Pot(996, 635, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(1180, 656, self)
+        self.pot = Pot(1180, 656, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(779, 783, self)
+        self.pot = Pot(779, 783, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(958, 807, self)
+        self.pot = Pot(958, 807, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(1005, 808, self)
+        self.pot = Pot(1005, 808, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(953, 101, self)
+        self.pot = Pot(953, 101, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(950, 54, self)
+        self.pot = Pot(950, 54, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(813, 153, self)
+        self.pot = Pot(813, 153, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(856, 154, self)
+        self.pot = Pot(856, 154, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(1003, 208, self)
+        self.pot = Pot(1003, 208, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(1051, 208, self)
+        self.pot = Pot(1051, 208, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(1002, 264, self)
+        self.pot = Pot(1002, 264, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(1054, 265, self)
+        self.pot = Pot(1054, 265, self)
         self.sprites.append(self.pot)
-        self.pot = new
-        Pot(827, 430, self)
+        self.pot = Pot(827, 430, self)
         self.sprites.append(self.pot)
 
-    update() // Update
-    the
-    model
-    {
-    for (let i = 0; i < self.sprites.length; i++) { // Update all sprites
-    if (self.sprites[i].isLink()) // If the sprite is a link save his previous location for collision calculations
-    self.link.savePreviousLocation();
-    if (!self.sprites[i].update()) self.sprites.splice(i, 1); // Remove sprites when they
+    def update(self): # Update the model
+        for i in range(len(self.sprites)): # Update all sprites
+            if self.sprites[i].isLink(): # If the sprite is a link save his previous location for collision calculations
+                self.link.savePreviousLocation()
+            if not (self.sprites[i].update()):
+                self.sprites.remove(i, 1) # Remove sprites when they return a false update
 
+        if self.scrollPosX == self.scrollDestX and self.scrollPosY == self.scrollDestY: # Checks if the map is still scrolling
+            self.scrolling = False
+        else:
+            self.scrolling = True
+            # Handle scrolling animation
+            if self.scrollPosX < self.scrollDestX:
+                self.scrollPosX += Math.min(self.scrollSpeed, self.scrollDestX - self.scrollPosX)
+            else:
+                self.scrollPosX -= Math.min(self.scrollSpeed, self.scrollPosX - self.scrollDestX)
 
-return a
-false
-update
-}
-
-if (self.scrollPosX == self.scrollDestX & & self.scrollPosY == self.scrollDestY){// Checks if the map is still scrolling
-self.scrolling = false;
-} else {
-self.scrolling = true;
-// Handle
-scrolling
-animation
-if (self.scrollPosX < self.scrollDestX){
-self.scrollPosX += Math.min(self.scrollSpeed, self.scrollDestX - self.scrollPosX);
-} else {
-self.scrollPosX -= Math.min(self.scrollSpeed, self.scrollPosX - self.scrollDestX);
-}
-
-if (self.scrollPosY < self.scrollDestY){
-self.scrollPosY += Math.min(self.scrollSpeed, self.scrollDestY - self.scrollPosY);
-} else {
-self.scrollPosY -= Math.min(self.scrollSpeed, self.scrollPosY - self.scrollDestY);
-}
-}
-}
+            if self.scrollPosY < self.scrollDestY:
+                self.scrollPosY += Math.min(self.scrollSpeed, self.scrollDestY - self.scrollPosY)
+            else
+                self.scrollPosY -= Math.min(self.scrollSpeed, self.scrollPosY - self.scrollDestY)
 
 doesCollide(spriteOne, spriteTwo)
 { // Check
