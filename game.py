@@ -341,819 +341,641 @@ class Boomerang(Sprite):
 
 
 class Model:
-        constructor(c) // Default
-    constructor
-    {
-        self.sprites = [];
-    self.createObjects() // Creates
-    all
-    hardcoded
-    objects
+    def __init__(self, c): # Default constructor
+        self.sprites = []
+        self.link = None
+        self.brick = None
+        self.pot = None
+        self.createObjects() # Creates all hardcoded objects
 
-    self.scrolling = false // Boolean
-    to
-    indicate
-    whether
-    the
-    map is still
-    scrolling
-    to
-    its
-    destination
-    self.scrollSpeed = 60
-    self.scrollPosX = 0
-    self.scrollPosY = 0
-    self.scrollDestX = 0
-    self.scrollDestY = 0
-    self.roomSizeX = 700
-    self.roomSizeY = 500
-    }
+        self.scrolling = False # Boolean to indicate whether the map is still scrolling to its destination
+        self.scrollSpeed = 60
+        self.scrollPosX = 0
+        self.scrollPosY = 0
+        self.scrollDestX = 0
+        self.scrollDestY = 0
+        self.roomSizeX = 700
+        self.roomSizeY = 500
 
-    createObjects()
-    {
-    // Create
-    Hardcoded
-    Link
-    self.link = new
-    Link(70, 70, 0, self)
-    self.sprites.push(self.link)
+    def createObjects(self):
+        # Create Hardcoded Link
+        self.link = Link(70, 70, 0, self)
+        self.sprites.append(self.link)
 
-    // Create
-    Hardcoded
-    Bricks
-    self.brick = new
-    Brick(0, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 50, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 100, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 150, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 200, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 350, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(50, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(100, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(150, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(200, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(250, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(300, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(350, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(400, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(450, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(500, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(550, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(600, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 150, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 200, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 350, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 400, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(600, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(550, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(400, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(350, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(300, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(150, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(100, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(50, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(250, 50, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(250, 100, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(250, 150, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(250, 200, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(250, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(600, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(550, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(500, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(450, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(400, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(250, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 150, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 200, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 350, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 400, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(750, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(800, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(850, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(900, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(950, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1000, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1050, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1100, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1150, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1200, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1250, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1300, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 0, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 50, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 100, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 150, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 200, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 350, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 400, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1300, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1250, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1200, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1150, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1100, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(750, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(900, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(950, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1000, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1050, 450, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(750, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(800, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(850, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(900, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(950, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(950, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(950, 200, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(900, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(750, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(950, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1000, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1050, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1100, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1150, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1200, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1250, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1300, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 550, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 600, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 650, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 750, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 850, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 900, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1350, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 550, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 600, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 850, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 900, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(750, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(800, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(850, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(900, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(950, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1000, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1050, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1100, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1150, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1200, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1250, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1300, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(850, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(850, 750, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(850, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(900, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1100, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1050, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1100, 650, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1100, 600, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1100, 550, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1150, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1200, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 600, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 550, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 850, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 900, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(600, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(550, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 400, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 550, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 600, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(150, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(300, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(400, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(350, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(550, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(600, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(100, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(50, 500, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 650, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 750, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 850, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 900, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(0, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(50, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(100, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(150, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(200, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(250, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(300, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(350, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(400, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(450, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(500, 950, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(300, 550, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(300, 600, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(300, 650, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(300, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(300, 750, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(300, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(650, 650, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(700, 650, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1300, 650, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1250, 650, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1250, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1300, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1100, 150, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1150, 150, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1200, 150, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1100, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1150, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1200, 300, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1100, 200, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1200, 200, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1150, 200, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1100, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1150, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(1200, 250, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(400, 150, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(450, 150, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(500, 150, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(600, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(550, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(500, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(450, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(400, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(350, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(250, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(200, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(150, 800, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(750, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(800, 700, self)
-    self.sprites.push(self.brick)
-    self.brick = new
-    Brick(950, 150, self)
-    self.sprites.push(self.brick)
+        # Create Hardcoded Bricks
+        self.brick = Brick(0, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(0, 50, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(0, 100, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(0, 150, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(0, 200, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(0, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(0, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(0, 350, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(50, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(100, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(150, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(200, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(250, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(300, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(350, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(400, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(450, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(500, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(550, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(600, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 150, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 200, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 350, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 400, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(600, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(550, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(400, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(350, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(300, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(150, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(100, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(50, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(0, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(250, 50, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(250, 100, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(250, 150, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(250, 200, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(250, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(600, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(550, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(500, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(450, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(400, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(250, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 150, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 200, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 350, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 400, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(750, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(800, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(850, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(900, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(950, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1000, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1050, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1100, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1150, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1200, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1250, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1300, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 0, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 50, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 100, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 150, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 200, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 350, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 400, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1300, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1250, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1200, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1150, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1100, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(750, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(900, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(950, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1000, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1050, 450, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(750, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(800, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(850, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(900, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(950, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(950, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(950, 200, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(900, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(750, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(950, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1000, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1050, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1100, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1150, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1200, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1250, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1300, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 550, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 600, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 650, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 750, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 850, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 900, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1350, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 550, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 600, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 850, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 900, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(700, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(750, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(800, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(850, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(900, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(950, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1000, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1050, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1100, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1150, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1200, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1250, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1300, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(850, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(850, 750, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(850, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(900, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1100, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1050, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1100, 650, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1100, 600, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1100, 550, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1150, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(1200, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 600, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 550, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 850, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 900, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(650, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(600, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(550, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(0, 400, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(0, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = Brick(0, 550, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(0, 600, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(150, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(300, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(400, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(350, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(550, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(600, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(100, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(50, 500, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(0, 650, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(0, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(0, 750, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(0, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(0, 850, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(0, 900, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(0, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(50, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(100, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(150, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(200, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(250, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(300, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(350, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(400, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(450, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(500, 950, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(300, 550, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(300, 600, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(300, 650, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(300, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(300, 750, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(300, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(650, 650, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(700, 650, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1300, 650, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1250, 650, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1250, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1300, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1100, 150, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1150, 150, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1200, 150, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1100, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1150, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1200, 300, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1100, 200, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1200, 200, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1150, 200, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1100, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1150, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(1200, 250, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(400, 150, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(450, 150, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(500, 150, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(600, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(550, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(500, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(450, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(400, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(350, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(250, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(200, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(150, 800, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(750, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(800, 700, self)
+        self.sprites.append(self.brick)
+        self.brick = new
+        Brick(950, 150, self)
+        self.sprites.append(self.brick)
 
-    // Create
-    Hardcoded
-    Pots
-    self.pot = new
-    Pot(302, 305, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(356, 303, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(300, 349, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(298, 396, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(447, 75, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(453, 224, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(426, 604, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(471, 605, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(521, 603, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(121, 626, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(166, 625, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(119, 676, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(167, 676, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(232, 853, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(231, 900, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(651, 756, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(651, 800, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(944, 588, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(991, 589, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(943, 632, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(996, 635, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(1180, 656, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(779, 783, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(958, 807, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(1005, 808, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(953, 101, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(950, 54, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(813, 153, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(856, 154, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(1003, 208, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(1051, 208, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(1002, 264, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(1054, 265, self)
-    self.sprites.push(self.pot)
-    self.pot = new
-    Pot(827, 430, self)
-    self.sprites.push(self.pot)
-    }
+        # Create Hardcoded Pots
+        self.pot = new
+        Pot(302, 305, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(356, 303, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(300, 349, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(298, 396, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(447, 75, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(453, 224, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(426, 604, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(471, 605, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(521, 603, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(121, 626, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(166, 625, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(119, 676, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(167, 676, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(232, 853, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(231, 900, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(651, 756, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(651, 800, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(944, 588, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(991, 589, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(943, 632, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(996, 635, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(1180, 656, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(779, 783, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(958, 807, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(1005, 808, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(953, 101, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(950, 54, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(813, 153, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(856, 154, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(1003, 208, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(1051, 208, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(1002, 264, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(1054, 265, self)
+        self.sprites.append(self.pot)
+        self.pot = new
+        Pot(827, 430, self)
+        self.sprites.append(self.pot)
 
     update() // Update
     the
@@ -1225,7 +1047,7 @@ to
 the
 above
 array
-self.sprites.push(s)
+self.sprites.append(s)
 if (self.controller.debug)
     console.log("Added " + s.toString());
 }
