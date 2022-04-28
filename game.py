@@ -318,38 +318,29 @@ class Boomerang(Sprite):
         elif self.direction == 3:
             self.y += self.speed
 
-        for (let i = 0; i < self.model.getSprites().length; i++) {// Check for a boomerang / pot collision
-        let p = undefined;
-        if (self.model.getSprites()[i].isPot() & & self.model.doesCollide(self, self.model.getSprites()[i])) {
-        p = self.model.getSprites()[i];
-        p.setBroken(true);
+        for i in range(len(self.model.getSprites())): # Check for a boomerang / pot collision
+            p = None
+            if self.model.getSprites()[i].isPot() and self.model.doesCollide(self, self.model.getSprites()[i]):
+                p = self.model.getSprites()[i]
+                p.setBroken(True)
+                return False
+            elif self.model.getSprites()[i].isBrick() and self.model.doesCollide(self, self.model.getSprites()[i]): # Brick / boomerang collision
+                return False
 
-        return false;
-        } else if (self.model.getSprites()[i].isBrick() & & self.model.doesCollide(self, self.model.getSprites()[
-            i])) {// Brick / boomerang collision
-        return false;
+        return True
 
-        return true;
+    def isBoomerang(self):
+        return True
 
-    isBoomerang()
-    {
-    return true;
-    }
+    def toString(self):
+        return "Boomerang (x, y, width, height) = (" + str(self.x) + ", " + str(self.y) + ", " + str(self.width) + ", " + str(self.height) + ")"
 
-    toString()
-    {
-    return "Boomerang (x, y, width, height) = (" + x + ", " + y + ", " + width + ", " + height + ")";
-    }
-
-    // Setters
-    setDirection(d)
-    {
-    self.direction = d
+    # Setters
+    def setDirection(self, d):
+        self.direction = d
 
 
-class Model
-    {
-
+class Model:
         constructor(c) // Default
     constructor
     {
