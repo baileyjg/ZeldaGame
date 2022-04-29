@@ -111,7 +111,11 @@ class Link(Sprite):
         elif self.model.getView().getController().getKeyDown():
             if self.direction > 9:
                 self.direction = 0
-                self.y = self.y + self.speed
+            self.y = self.y + self.speed
+
+        if self.rect is not None:
+            self.rect.x = self.x
+            self.rect.y = self.y
 
         if not (self.model.getScrolling()):  # Debounce to ensure scrolling doesn't glitch back and forth
             if self.x + self.width >= 700 and self.model.getScrollDestX() != -700:  # Scroll right
@@ -916,11 +920,11 @@ class Model:
         self.sprites.append(self.pot)
 
     def update(self):  # Update the model
-        for i in range(len(self.sprites)):  # Update all sprites
-            if self.sprites[i].isLink():  # Save Link's previous location
+        for i in self.sprites.copy():  # Update all sprites
+            if i.isLink():  # Save Link's previous location
                 self.link.savePreviousLocation()
-            if not (self.sprites[i].update()):
-                self.sprites.pop(i)  # Remove sprites when they return a false update
+            if not (i.update()):
+                self.sprites.remove(i)  # Remove sprites when they return a false update
 
         if self.scrollPosX == self.scrollDestX and self.scrollPosY == self.scrollDestY:  # Checks if the map is still scrolling
             self.scrolling = False
@@ -1063,37 +1067,6 @@ class Controller:
         self.debug = False
         self.keep_going = True
 
-    # Keyboard control
-    # def keyPressed(self, keys):
-    #     k = keys
-    #
-    #     if keys[K_LEFT]:
-    #         self.keyLeft = True
-    #     elif keys[K_RIGHT]:
-    #         self.keyRight = True
-    #     elif keys[K_UP]:
-    #         self.keyUp = True
-    #     elif keys[K_DOWN]:
-    #         self.keyDown = True
-    #     elif keys[K_v]: # Toggles debug console messages
-    #         self.debug = not self.debug
-    #         print("Toggled debug.")
-    #
-    # def keyReleased(self, keys):
-    #     k = keys
-    #
-    #     if keys[K_LEFT]:
-    #         self.keyLeft = True
-    #     elif keys[K_RIGHT]:
-    #         self.keyRight = True
-    #     elif keys[K_UP]:
-    #         self.keyUp = True
-    #     elif keys[K_DOWN]:
-    #         self.keyDown = True
-    #     elif keys[K_v]: # Toggles debug console messages
-    #         self.debug = not self.debug
-    #         print("Toggled debug.")
-
     def throw_boomerang(self):
         if not (self.model.getScrolling()):  # Make sure the model is not scrolling
             b = None
@@ -1108,7 +1081,7 @@ class Controller:
                 b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 1, self.model)
             self.model.addSprite(b)
 
-    def update(self):
+    def update(self):  # Handle key presses and releases
         for event in pygame.event.get():
             if event.type == QUIT:
                 self.keep_going = False
@@ -1160,103 +1133,6 @@ class Controller:
 
     def getKeyDown(self):
         return self.keyDown
-
-
-# class Game
-#     {
-#
-#         constructor()
-#     {
-#     // Prepares
-#     the
-#     viewing
-#     window and assigns
-#     controller
-#     tasks
-#     self.model = new
-#     Model();
-#     self.controller = new
-#     Controller(self.model);
-#     self.view = new
-#     View(self.controller, self.model);
-#     self.model.setView(self.view);
-#     self.model.setController(self.controller)
-#     }
-#
-#     // Runs
-#     a
-#     loop
-#     for the turtle animation
-#     onTimer()
-#     {
-#     // controller.update();
-#     self.model.update(); // Updates the model, sprites, and scroll view
-#     self.view.paintComponent()
-#     }
-#     }
-
-
-##########################################################################################
-##########################################################################################
-
-
-# class Model():
-#     def __init__(self):
-#         self.dest_x = 0
-#         self.dest_y = 0
-#
-#     def update(self):
-#         if self.rect.left < self.dest_x:
-#             self.rect.left += 1
-#         if self.rect.left > self.dest_x:
-#             self.rect.left -= 1
-#         if self.rect.top < self.dest_y:
-#             self.rect.top += 1
-#         if self.rect.top > self.dest_y:
-#             self.rect.top -= 1
-#
-#     def set_dest(self, pos):
-#         self.dest_x = pos[0]
-#         self.dest_y = pos[1]
-
-
-# class View():
-#     def __init__(self, model):
-#         screen_size = (800, 600)
-#         self.screen = pygame.display.set_mode(screen_size, 32)
-#         self.turtle_image = pygame.image.load("turtle.png")
-#         self.model = model
-#         self.model.rect = self.turtle_image.get_rect()
-#
-#     def update(self):
-#         self.screen.fill([0, 200, 100])
-#         self.screen.blit(self.turtle_image, self.model.rect)
-#         pygame.display.flip()
-
-
-# class Controller():
-#     def __init__(self, model):
-#         self.model = model
-#         self.keep_going = True
-#
-#     def update(self):
-#         for event in pygame.event.get():
-#             if event.type == QUIT:
-#                 self.keep_going = False
-#             elif event.type == KEYDOWN:
-#                 if event.key == K_ESCAPE:
-#                     self.keep_going = False
-#             elif event.type == pygame.MOUSEBUTTONUP:
-#                 self.model.set_dest(pygame.mouse.get_pos())
-#         keys = pygame.key.get_pressed()
-#         if keys[K_LEFT]:
-#             self.model.dest_x -= 1
-#         if keys[K_RIGHT]:
-#             self.model.dest_x += 1
-#         if keys[K_UP]:
-#             self.model.dest_y -= 1
-#         if keys[K_DOWN]:
-#             self.model.dest_y += 1
 
 
 print("Use the arrow keys to move. Press Esc to quit.")
