@@ -320,8 +320,6 @@ class Pot(Sprite):
 
 
 class Boomerang(Sprite):
-    images = [None]  # Static class variable
-
     def __init__(self, x, y, d, m):
         super(Boomerang, self).__init__(x, y)
         self.width = 16
@@ -331,15 +329,22 @@ class Boomerang(Sprite):
         self.model = m
         self.image = 0  # Which image is the boomerang currently drawing
         self.rect = None
+        self.images = [None]
 
     def draw(self, g):
         if self.images[0] is None:  # Lazy load the boomerang images
             self.images.clear()
             for i in range(4):
                 self.images.append(self.model.getView().loadImage("images/boomerang" + str(i) + ".png"))
-                self.rect = self.images[0].get_rect()
-                self.rect.x = self.x + self.model.getScrollPosX()
-                self.rect.y = self.y + self.model.getScrollPosY()
+            self.rect = self.images[0].get_rect()
+
+        if self.rect is not None:
+            self.rect.x = self.x + self.model.getScrollPosX()
+            self.rect.y = self.y + self.model.getScrollPosY()
+            self.rect.width = self.width
+            self.rect.height = self.height
+            self.rect.inflate(10, 10)
+            g.blit(self.images[self.image], self.rect)
 
     def update(self):
         if self.image != 3:  # Increment the direction each update to animate the boomerang
@@ -350,6 +355,9 @@ class Boomerang(Sprite):
             self.rect = self.images[self.image].get_rect()  # Set the rectangle to the current image
             self.rect.x = self.x + self.model.getScrollPosX()
             self.rect.y = self.y + self.model.getScrollPosY()
+            self.rect.width = self.width
+            self.rect.height = self.height
+
 
         if self.direction == 0:  # Control how the boomerangs coordinates change depending on direction
             self.x -= self.speed
