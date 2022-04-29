@@ -67,6 +67,7 @@ class Link(Sprite):
         self.direction = d
         self.model = m
         self.images = [None]
+        self.rect = None
 
     def draw(self, g):
         if self.images[0] is None:  # If link's images have not been loaded, load them in
@@ -76,7 +77,9 @@ class Link(Sprite):
 
         # g.drawImage(self.images[self.direction], self.x + self.model.getScrollPosX(),
         #             self.y + self.model.getScrollPosY())
+        self.rect = self.images[self.direction].get_rect()
 
+        g.blit(self.images[self.direction], self.rect)
         # Handle link's animation loop
         if self.direction == 9 or (
                 self.direction % 10) == 9:  # If direction is 9, 19, 29, or 39 then reset link back to first direction stance else increment the animation
@@ -172,6 +175,7 @@ class Brick(Sprite):
         self.model = m
         self.width = 50
         self.height = 50
+        self.rect = None
 
     def existingBrick(self, x, y):  # Checks if the brick exists
         if self.x == x and self.y == y:
@@ -185,8 +189,11 @@ class Brick(Sprite):
     def draw(self, g):  # Draws the brick
         if self.image is None:
             self.image = self.model.getView().loadImage("images/brick.jpg")
-        g.drawImage(self.image, self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width,
-                    self.height)
+        # g.drawImage(self.image, self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width,
+        #             self.height)
+
+        self.rect = self.image.get_rect()
+        g.blit(self.image, self.rect)
 
     def toString(self):
         return "Brick (x, y, width, height) = (" + str(self.x) + ", " + str(self.y) + ", " + str(self.width) + ", " + str(self.height) + ")"
@@ -200,13 +207,14 @@ class Pot(Sprite):
         super(Pot, self).__init__(x, y)
         self.width = 40
         self.height = 40
-        self.images = []
+        self.images = [None]
         self.model = m
         self.direction = 0
         self.broken = False
         self.removeDelay = 30
         self.collisionOffset = 12
         self.speed = 15
+        self.rect = None
 
     def update(self):  # Communicates to model when to remove the pot
         for i in range(len(self.model.getSprites())):
@@ -247,15 +255,20 @@ class Pot(Sprite):
 
     def draw(self, g):
         if self.images[0] is None:
-            self.images[0] = self.model.getView().loadImage("images/pot.png")
-            self.images[1] = self.model.getView().loadImage("images/pot_broken.png")
+            self.images.clear()
+            self.images.append(self.model.getView().loadImage("images/pot.png"))
+            self.images.append(self.model.getView().loadImage("images/pot_broken.png"))
 
         if self.broken:  # Draw the pot depending on broken status
-            g.drawImage(self.images[1], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
-                        self.width, self.height)
+            self.rect = self.images[1].get_rect()
+            g.blit(self.images[1], self.rect)
+            # g.drawImage(self.images[1], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
+            #             self.width, self.height)
         else:
-            g.drawImage(self.images[0], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
-                        self.width, self.height)
+            self.rect = self.images[0].get_rect()
+            g.blit(self.images[0], self.rect)
+            # g.drawImage(self.images[0], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
+            #             self.width, self.height)
 
     def linkCollisionDetected(self, l):  # Determine where the pot should slide based on link collision
         if self.direction == 0 and not self.broken:  # Check if the pot has already been collided with or broken by a boomerang
@@ -983,6 +996,7 @@ class View:
         self.model = m
         screen_size = (700, 500)
         self.screen = pygame.display.set_mode(screen_size, 32)
+        # self.turtle_image = pygame.image.load("turtle.png")
         # self.model.rect = self.turtle_image.get_rect()
 
     def loadImage(self, fileName): # Loads various images
