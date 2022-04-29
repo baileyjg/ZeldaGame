@@ -71,7 +71,7 @@ class Link(Sprite):
     def draw(self, g):
         if self.images[0] is None:  # If link's images have not been loaded, load them in
             for i in range(40):
-                self.images.append(self.model.getView().loadImage("images/link" + i + ".png"))
+                self.images.append(self.model.getView().loadImage("images/link" + str(i) + ".png"))
 
         g.drawImage(self.images[self.direction], self.x + self.model.getScrollPosX(),
                     self.y + self.model.getScrollPosY())
@@ -84,7 +84,7 @@ class Link(Sprite):
             self.direction += 1
         else:
             # Reset to idle positions if no keys are down
-            self.direction -= self.direction % 10;
+            self.direction -= self.direction % 10
 
     def update(self):
         # Handle link's movement
@@ -144,7 +144,7 @@ class Link(Sprite):
         self.pY = self.y
 
     def toString(self):
-        return "Link (x, y, width, height) = (" + self.x + ", " + self.y + ", " + self.width + ", " + self.height + ")"
+        return "Link (x, y, width, height) = (" + str(self.x) + ", " + str(self.y) + ", " + str(self.width) + ", " + str(self.height) + ")"
 
     def isLink(self):
         return True
@@ -188,7 +188,7 @@ class Brick(Sprite):
                     self.height)
 
     def toString(self):
-        return "Brick (x, y, width, height) = (" + self.x + ", " + self.y + ", " + self.width + ", " + self.height + ")"
+        return "Brick (x, y, width, height) = (" + str(self.x) + ", " + str(self.y) + ", " + str(self.width) + ", " + str(self.height) + ")"
 
     def isBrick(self):
         return True
@@ -883,7 +883,7 @@ class Model:
             if self.sprites[i].isLink(): # If the sprite is a link save his previous location for collision calculations
                 self.link.savePreviousLocation()
             if not (self.sprites[i].update()):
-                self.sprites.remove(i, 1) # Remove sprites when they return a false update
+                self.sprites.pop(i) # Remove sprites when they return a false update
 
         if self.scrollPosX == self.scrollDestX and self.scrollPosY == self.scrollDestY: # Checks if the map is still scrolling
             self.scrolling = False
@@ -891,290 +891,151 @@ class Model:
             self.scrolling = True
             # Handle scrolling animation
             if self.scrollPosX < self.scrollDestX:
-                self.scrollPosX += Math.min(self.scrollSpeed, self.scrollDestX - self.scrollPosX)
+                self.scrollPosX += min(self.scrollSpeed, self.scrollDestX - self.scrollPosX)
             else:
-                self.scrollPosX -= Math.min(self.scrollSpeed, self.scrollPosX - self.scrollDestX)
+                self.scrollPosX -= min(self.scrollSpeed, self.scrollPosX - self.scrollDestX)
 
             if self.scrollPosY < self.scrollDestY:
-                self.scrollPosY += Math.min(self.scrollSpeed, self.scrollDestY - self.scrollPosY)
+                self.scrollPosY += min(self.scrollSpeed, self.scrollDestY - self.scrollPosY)
             else
-                self.scrollPosY -= Math.min(self.scrollSpeed, self.scrollPosY - self.scrollDestY)
+                self.scrollPosY -= min(self.scrollSpeed, self.scrollPosY - self.scrollDestY)
 
-doesCollide(spriteOne, spriteTwo)
-{ // Check
-for a collision between two sprites
-// Check if link is not colliding
-if (spriteOne.getX() + spriteOne.getWidth() <= spriteTwo.getX())
-return false;
-if (spriteOne.getX() >= spriteTwo.getX() + spriteTwo.getWidth())
-    return false;
-if (spriteOne.getY() >= spriteTwo.getY() + spriteTwo.getHeight())
-    return false;
-if (spriteOne.getY() + spriteOne.getHeight() <= spriteTwo.getY())
-    return false;
+    def doesCollide(self, spriteOne, spriteTwo): # Check for a collision between two sprites
+        # Check if link is not colliding
+        if spriteOne.getX() + spriteOne.getWidth() <= spriteTwo.getX():
+            return False
+        if spriteOne.getX() >= spriteTwo.getX() + spriteTwo.getWidth():
+            return False
+        if spriteOne.getY() >= spriteTwo.getY() + spriteTwo.getHeight():
+            return False
+        if spriteOne.getY() + spriteOne.getHeight() <= spriteTwo.getY():
+            return False
 
-// Otherwise
-the
-sprites
-are
-colliding
-if (self.controller.debug) {
-console.log("Sprite collision detected!");
-console.log(spriteOne);
-console.log(spriteTwo);
-}
-return true;
-}
+        # Otherwise the sprites are colliding
+        if self.controller.debug:
+            print("Sprite collision detected!")
+            print(spriteOne)
+            print(spriteTwo)
+        return True
 
-addSprite(s)
-{ // Add
-a
-sprite
-to
-the
-above
-array
-self.sprites.append(s)
-if (self.controller.debug)
-    console.log("Added " + s.toString());
-}
+    def addSprite(self, s): # Add a sprite to the above array
+        self.sprites.append(s)
+        if self.controller.debug:
+            print("Added " + s.toString())
 
-removeSprite(i)
-{ // Remove
-a
-sprite
-from the above
+    def removeSprite(self, i): # Remove a sprite from the above array
+        self.sprites.pop(i)
 
-array
-sprites.remove(i);
-}
+    # Getters
+    def getSprites(self):
+        return self.sprites
 
-// Getters
-getSprites()
-{
-return self.sprites;
-}
+    def getLink(self):
+        return self.link
 
-getLink()
-{
-return self.link;
-}
+    def getScrollPosX(self):
+        return self.scrollPosX
 
-getScrollPosX()
-{
-return self.scrollPosX;
-}
+    def getScrollPosY(self):
+        return self.scrollPosY
 
-getScrollPosY()
-{
-return self.scrollPosY;
-}
+    def getScrollDestX(self):
+        return self.scrollDestX
 
-getScrollDestX()
-{
-return self.scrollDestX;
-}
+    def getScrollDestY(self):
+        return self.scrollDestY
 
-getScrollDestY()
-{
-return self.scrollDestY;
-}
+    def getScrolling(self):
+        return self.scrolling
 
-getScrolling()
-{
-return self.scrolling;
-}
+    def getView(self):
+        return self.view
 
-getView()
-{
-return self.view;
-}
+    def getController(self):
+        return self.controller
 
-getController()
-{
-return self.controller
-}
+    def getRoomSizeX(self):
+        return self.roomSizeX
 
-getRoomSizeX()
-{
-return self.roomSizeX;
-}
+    def getRoomSizeY(self):
+        return self.roomSizeY
 
-getRoomSizeY()
-{
-return self.roomSizeY;
-}
+    # Setters
+    def setView(self, v):
+        self.view = v
 
-// Setters
-setView(v)
-{
-self.view = v;
-}
+    def setController(self, c):
+        self.controller = c
 
-setController(c)
-{
-self.controller = c
-}
+    def setScrollPos(self, x, y):
+        self.scrollPosX = x
+        self.scrollPosY = y
 
-setScrollPos(x, y)
-{
-self.scrollPosX = x;
-self.scrollPosY = y;
-}
+    def setScrollDest(self, x, y):
+        self.scrollDestX = x
+        self.scrollDestY = y
 
-setScrollDest(x, y)
-{
-self.scrollDestX = x;
-self.scrollDestY = y;
-}
-}
+class View:
+    def __init__(self, c, m):
+        self.controller = c
+        self.model = m
+        # self.canvas = document.getElementById("myCanvas")
 
-class View
-    {
+    def loadImage(self, fileName): # Loads various images
+        try:
+            image = pygame.image.load(fileName)
+            if self.controller.debug:
+                print("Loaded " + fileName)
+            return image
+        except:
+            print("Error loading " + fileName + "!")
+            return None
 
-        constructor(c, m)
-    {
-        self.controller = c;
-    self.model = m;
-    self.canvas = document.getElementById("myCanvas");
-    // c.loadFile(); // Load
-    the
-    objects
-    on
-    startup
-    }
+    def paintComponent(self):
+        # Minipulate the 700 x500 canvas
+        ctx = self.canvas.getContext("2d")
+        ctx.fillStyle = "aqua"
+        ctx.fillRect(0, 0, 700, 500)
 
-    loadImage(fileName)
-    { // Loads
-    various
-    images
+        sprites = self.model.getSprites() # Utilizing an iterator instead of an index method
+        sprites.forEach(draw)
+
+        function draw(value, index, array)
+            if (sprites[index].isLink())
+                return
+            value.draw(ctx)
+        self.model.getLink().draw(ctx) # Draw link last so he is over everything
+
+    # Getters
+    def getController(self):
+        return self.controller
 
 
-try {
-let image = new Image()
-image.src = fileName
-if (self.controller.debug) {
-console.log("Loaded " + fileName);
-}
-return image;
-} catch(e)
-{
-console.log("Error loading " + fileName + "!");
-console.trace()
-}
-return undefined;
-}
+class Controller:
+    def __init__(self, m):
+        self.model = m
+        self.keyLeft = False
+        self.keyRight = False
+        self.keyUp = False
+        self.keyDown = False
+        self.brickSnapIncrement = 50
+        self.debug = False
 
-paintComponent()
-{
-// Minipulate
-the
-700
-x500
-canvas
-let
-ctx = self.canvas.getContext("2d");
-ctx.fillStyle = "aqua"
-ctx.fillRect(0, 0, 700, 500);
+    # Keyboard control
+    def keyPressed(self, keys):
+        k = keys
 
-let
-sprites = self.model.getSprites() // Utilizing
-an
-iterator
-instead
-of
-an
-index
-method
-sprites.forEach(draw)
-
-function
-draw(value, index, array)
-{
-if (sprites[index].isLink())
-return
-value.draw(ctx)
-}
-self.model.getLink().draw(ctx); // Draw
-link
-last
-so
-that
-he is over
-everything
-}
-
-// Getters
-getController()
-{
-return self.controller;
-}
-}
-
-class Controller
-    {
-    // private
-    String
-    saveFile = "map.json";
-
-    constructor(m)
-    {
-        self.model = m;
-    self.keyLeft = false
-    self.keyRight = false
-    self.keyUp = false
-    self.keyDown = false
-    self.brickSnapIncrement = 50
-    self.debug = false
-    let
-    self = self
-    document.onkeydown = function(event)
-    {self.keyPressed(event)} // When
-    a
-    key is pressed
-    document.onkeyup = function(event)
-    {self.keyReleased(event)} // When
-    a
-    key is released
-    }
-
-    // Keyboard
-    control
-    keyPressed(event)
-    {
-        let
-    c = event.key;
-    let
-    code = event.keyCode
-
-    switch(code)
-    {
-        case
-    39: self.keyRight = true;
-    break;
-
-
-case
-37: self.keyLeft = true;
-break;
-case
-38: self.keyUp = true;
-break;
-case
-40: self.keyDown = true;
-break;
-}
-
-if (!(self.model.getScrolling())){// Check to make sure view is stationary first
-if (event.key == "Escape" | | event.key == "Q" | | event.key == "q"){// Quits the application
-close()
-
-} else if (c == 'V' | | c == 'v') {// Toggles debug console messages
-self.debug = !self.debug;
-console.log("Toggled debug.");
-}
-}
-}
+        if keys[K_LEFT]:
+            self.keyLeft = True
+        elif keys[K_RIGHT]:
+            self.keyRight = True
+        elif keys[K_UP]:
+            self.keyUp = True
+        elif keys[K_DOWN]:
+            self.keyDown = True
+        elif keys[K_v]: # Toggles debug console messages
+            self.debug = not self.debug
+        console.log("Toggled debug.")
 
 keyReleased(event)
 {
@@ -1215,34 +1076,22 @@ self.model.addSprite(b);
 }
 }
 
-< !-- update() -->
-< !-- {-->
-< !-- console.log(self.keyRight) -->
-< !--} -->
-
-< !-- loadFile()
-{ // Load
-objects
-from save file
-
--->
-< !--
-try {-->
-< !-- Json loadObject = Json.load(saveFile); -->
-< !-- model.unmarshal(loadObject); -->
-< !-- if (debug) -->
-< !-- System.out.println(saveFile + " loaded."); -->
-< !--} -->
-< !-- catch(Exception
-e){-->
-< !-- System.out.println("Error loading " + saveFile + "!");
--->
-< !-- e.printStackTrace(System.err);
--->
-< !-- System.exit(1);
--->
-< !--} -->
-< !--} -->
+    def update(self):
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                self.keep_going = False
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    self.keep_going = False
+        keys = pygame.key.get_pressed()
+        if keys[K_LEFT]:
+            self.model.dest_x -= 1
+        if keys[K_RIGHT]:
+            self.model.dest_x += 1
+        if keys[K_UP]:
+            self.model.dest_y -= 1
+        if keys[K_DOWN]:
+            self.model.dest_y += 1
 
 scrollLeft()
 {
@@ -1319,13 +1168,6 @@ class Game
     }
     }
 
-
-let
-game = new
-Game();
-let
-timer = setInterval(function()
-{game.onTimer();}, 40);
 
 ##########################################################################################
 ##########################################################################################
