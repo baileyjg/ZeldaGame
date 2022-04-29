@@ -61,11 +61,11 @@ class Link(Sprite):
         super(x, y)
         self.pX = 0
         self.pY = 0
-        self.width = 68;
-        self.height = 75;
+        self.width = 68
+        self.height = 75
         self.speed = 10.0
-        self.direction = d;
-        self.model = m;
+        self.direction = d
+        self.model = m
         self.images = []
 
     def draw(self, g):
@@ -979,7 +979,9 @@ class View:
     def __init__(self, c, m):
         self.controller = c
         self.model = m
-        # self.canvas = document.getElementById("myCanvas")
+        screen_size = (700, 500)
+        self.screen = pygame.display.set_mode(screen_size, 32)
+        # self.model.rect = self.turtle_image.get_rect()
 
     def loadImage(self, fileName): # Loads various images
         try:
@@ -991,20 +993,21 @@ class View:
             print("Error loading " + fileName + "!")
             return None
 
-    def paintComponent(self):
-        # Minipulate the 700 x500 canvas
-        ctx = self.canvas.getContext("2d")
-        ctx.fillStyle = "aqua"
-        ctx.fillRect(0, 0, 700, 500)
+    def update(self):
+        sprites = self.model.getSprites()
+        self.screen.fill([0, 200, 100])
+        for sprite in sprites:
+            sprite.draw(self.screen)
+        pygame.display.flip()
 
-        sprites = self.model.getSprites() # Utilizing an iterator instead of an index method
-        sprites.forEach(draw)
+    # def paintComponent(self):
+    #     # Manipulate the 700 x500 canvas
+    #     # ctx = self.canvas.getContext("2d")
+    #     # ctx.fillStyle = "aqua"
+    #     # ctx.fillRect(0, 0, 700, 500)
+    #
+    #     sprites = self.model.getSprites() # Utilizing an iterator instead of an index method
 
-        function draw(value, index, array)
-            if (sprites[index].isLink())
-                return
-            value.draw(ctx)
-        self.model.getLink().draw(ctx) # Draw link last so he is over everything
 
     # Getters
     def getController(self):
@@ -1020,6 +1023,7 @@ class Controller:
         self.keyDown = False
         self.brickSnapIncrement = 50
         self.debug = False
+        self.keep_going = True
 
     # Keyboard control
     def keyPressed(self, keys):
@@ -1035,46 +1039,38 @@ class Controller:
             self.keyDown = True
         elif keys[K_v]: # Toggles debug console messages
             self.debug = not self.debug
-        console.log("Toggled debug.")
+            print("Toggled debug.")
 
-keyReleased(event)
-{
-    let
-code = event.keyCode
+    def keyReleased(self, keys):
+        k = keys
 
-switch(code)
-{
-case
-39: self.keyRight = false;
-break;
-case
-37: self.keyLeft = false;
-break;
-case
-38: self.keyUp = false;
-break;
-case
-40: self.keyDown = false;
-break;
-}
+        if keys[K_LEFT]:
+            self.keyLeft = True
+        elif keys[K_RIGHT]:
+            self.keyRight = True
+        elif keys[K_UP]:
+            self.keyUp = True
+        elif keys[K_DOWN]:
+            self.keyDown = True
+        elif keys[K_v]: # Toggles debug console messages
+            self.debug = not self.debug
+            print("Toggled debug.")
 
-if (!self.model.getScrolling()) {// Make sure the model is not scrolling
-if (event.code === "ControlLeft") {
-let b = undefined;
-let l = self.model.getLink();
-if (self.model.getLink().getDirection() <= 9) {// Link is facing forward
-b = new Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 3, self.model);
-} else if (self.model.getLink().getDirection() >= 10 & & self.model.getLink().getDirection() <= 19) {// Link is facing left
-b = new Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 0, self.model);
-} else if (self.model.getLink().getDirection() >= 20 & & self.model.getLink().getDirection() <= 29) {// Link is facing backwards
-b = new Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 2, self.model);
-} else {// Link is facing right
-b = new Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 1, self.model);
-}
-self.model.addSprite(b);
-}
-}
-}
+
+
+    def throw_boomerang(self):
+        if not(self.model.getScrolling()): # Make sure the model is not scrolling
+            b = None
+            l = self.model.getLink();
+            if self.model.getLink().getDirection() <= 9: # Link is facing forward
+                b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 3, self.model)
+            elif self.model.getLink().getDirection() >= 10 and self.model.getLink().getDirection() <= 19: # Link is facing left
+                b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 0, self.model)
+            elif self.model.getLink().getDirection() >= 20 and self.model.getLink().getDirection() <= 29: # Link is facing backwards
+                b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 2, self.model)
+            else: # Link is facing right
+                b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 1, self.model)
+            self.model.addSprite(b)
 
     def update(self):
         for event in pygame.event.get():
@@ -1083,160 +1079,153 @@ self.model.addSprite(b);
             elif event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     self.keep_going = False
-        keys = pygame.key.get_pressed()
-        if keys[K_LEFT]:
-            self.model.dest_x -= 1
-        if keys[K_RIGHT]:
-            self.model.dest_x += 1
-        if keys[K_UP]:
-            self.model.dest_y -= 1
-        if keys[K_DOWN]:
-            self.model.dest_y += 1
+                elif event.key == K_LEFT:
+                    self.keyLeft = True
+                elif event.key == K_RIGHT:
+                    self.keyRight = True
+                elif event.key == K_UP:
+                    self.keyUp = True
+                elif event.key == K_DOWN:
+                    self.keyDown = True
+            elif event.type == KEYUP:
+                if event.key == K_LEFT:
+                    self.keyLeft = False
+                elif event.key == K_RIGHT:
+                    self.keyRight = False
+                elif event.key == K_UP:
+                    self.keyUp = False
+                elif event.key == K_DOWN:
+                    self.keyDown = False
 
-scrollLeft()
-{
-self.model.setScrollDest(self.model.getScrollDestX() + self.model.getRoomSizeX(), self.model.getScrollDestY());
-}
+    def scrollLeft(self):
+        self.model.setScrollDest(self.model.getScrollDestX() + self.model.getRoomSizeX(), self.model.getScrollDestY())
 
-scrollRight()
-{
-self.model.setScrollDest(self.model.getScrollDestX() - self.model.getRoomSizeX(), self.model.getScrollDestY());
-}
+    def scrollRight(self):
+        self.model.setScrollDest(self.model.getScrollDestX() - self.model.getRoomSizeX(), self.model.getScrollDestY())
 
-scrollUp()
-{
-self.model.setScrollDest(self.model.getScrollDestX(), self.model.getScrollDestY() + self.model.getRoomSizeY());
-}
+    def scrollUp(self):
+        self.model.setScrollDest(self.model.getScrollDestX(), self.model.getScrollDestY() + self.model.getRoomSizeY())
 
-scrollDown()
-{
-self.model.setScrollDest(self.model.getScrollDestX(), self.model.getScrollDestY() - self.model.getRoomSizeY());
-}
+    def scrollDown(self):
+        self.model.setScrollDest(self.model.getScrollDestX(), self.model.getScrollDestY() - self.model.getRoomSizeY())
 
-// Getters
-getKeyRight()
-{
-return self.keyRight;
-}
+    # Getters
+    def getKeyRight(self):
+        return self.keyRight
 
-getKeyLeft()
-{
-return self.keyLeft;
-}
+    def getKeyLeft(self):
+        return self.keyLeft
 
-getKeyUp()
-{
-return self.keyUp;
-}
+    def getKeyUp(self):
+        return self.keyUp
 
-getKeyDown()
-{
-return self.keyDown;
-}
-}
+    def getKeyDown(self):
+        return self.keyDown
 
-class Game
-    {
-
-        constructor()
-    {
-    // Prepares
-    the
-    viewing
-    window and assigns
-    controller
-    tasks
-    self.model = new
-    Model();
-    self.controller = new
-    Controller(self.model);
-    self.view = new
-    View(self.controller, self.model);
-    self.model.setView(self.view);
-    self.model.setController(self.controller)
-    }
-
-    // Runs
-    a
-    loop
-    for the turtle animation
-    onTimer()
-    {
-    // controller.update();
-    self.model.update(); // Updates the model, sprites, and scroll view
-    self.view.paintComponent()
-    }
-    }
+# class Game
+#     {
+#
+#         constructor()
+#     {
+#     // Prepares
+#     the
+#     viewing
+#     window and assigns
+#     controller
+#     tasks
+#     self.model = new
+#     Model();
+#     self.controller = new
+#     Controller(self.model);
+#     self.view = new
+#     View(self.controller, self.model);
+#     self.model.setView(self.view);
+#     self.model.setController(self.controller)
+#     }
+#
+#     // Runs
+#     a
+#     loop
+#     for the turtle animation
+#     onTimer()
+#     {
+#     // controller.update();
+#     self.model.update(); // Updates the model, sprites, and scroll view
+#     self.view.paintComponent()
+#     }
+#     }
 
 
 ##########################################################################################
 ##########################################################################################
 
 
-class Model():
-    def __init__(self):
-        self.dest_x = 0
-        self.dest_y = 0
-
-    def update(self):
-        if self.rect.left < self.dest_x:
-            self.rect.left += 1
-        if self.rect.left > self.dest_x:
-            self.rect.left -= 1
-        if self.rect.top < self.dest_y:
-            self.rect.top += 1
-        if self.rect.top > self.dest_y:
-            self.rect.top -= 1
-
-    def set_dest(self, pos):
-        self.dest_x = pos[0]
-        self.dest_y = pos[1]
-
-
-class View():
-    def __init__(self, model):
-        screen_size = (800, 600)
-        self.screen = pygame.display.set_mode(screen_size, 32)
-        self.turtle_image = pygame.image.load("turtle.png")
-        self.model = model
-        self.model.rect = self.turtle_image.get_rect()
-
-    def update(self):
-        self.screen.fill([0, 200, 100])
-        self.screen.blit(self.turtle_image, self.model.rect)
-        pygame.display.flip()
+# class Model():
+#     def __init__(self):
+#         self.dest_x = 0
+#         self.dest_y = 0
+#
+#     def update(self):
+#         if self.rect.left < self.dest_x:
+#             self.rect.left += 1
+#         if self.rect.left > self.dest_x:
+#             self.rect.left -= 1
+#         if self.rect.top < self.dest_y:
+#             self.rect.top += 1
+#         if self.rect.top > self.dest_y:
+#             self.rect.top -= 1
+#
+#     def set_dest(self, pos):
+#         self.dest_x = pos[0]
+#         self.dest_y = pos[1]
 
 
-class Controller():
-    def __init__(self, model):
-        self.model = model
-        self.keep_going = True
+# class View():
+#     def __init__(self, model):
+#         screen_size = (800, 600)
+#         self.screen = pygame.display.set_mode(screen_size, 32)
+#         self.turtle_image = pygame.image.load("turtle.png")
+#         self.model = model
+#         self.model.rect = self.turtle_image.get_rect()
+#
+#     def update(self):
+#         self.screen.fill([0, 200, 100])
+#         self.screen.blit(self.turtle_image, self.model.rect)
+#         pygame.display.flip()
 
-    def update(self):
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                self.keep_going = False
-            elif event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    self.keep_going = False
-            elif event.type == pygame.MOUSEBUTTONUP:
-                self.model.set_dest(pygame.mouse.get_pos())
-        keys = pygame.key.get_pressed()
-        if keys[K_LEFT]:
-            self.model.dest_x -= 1
-        if keys[K_RIGHT]:
-            self.model.dest_x += 1
-        if keys[K_UP]:
-            self.model.dest_y -= 1
-        if keys[K_DOWN]:
-            self.model.dest_y += 1
+
+# class Controller():
+#     def __init__(self, model):
+#         self.model = model
+#         self.keep_going = True
+#
+#     def update(self):
+#         for event in pygame.event.get():
+#             if event.type == QUIT:
+#                 self.keep_going = False
+#             elif event.type == KEYDOWN:
+#                 if event.key == K_ESCAPE:
+#                     self.keep_going = False
+#             elif event.type == pygame.MOUSEBUTTONUP:
+#                 self.model.set_dest(pygame.mouse.get_pos())
+#         keys = pygame.key.get_pressed()
+#         if keys[K_LEFT]:
+#             self.model.dest_x -= 1
+#         if keys[K_RIGHT]:
+#             self.model.dest_x += 1
+#         if keys[K_UP]:
+#             self.model.dest_y -= 1
+#         if keys[K_DOWN]:
+#             self.model.dest_y += 1
 
 
 print("Use the arrow keys to move. Press Esc to quit.")
 pygame.init()
 m = Model()
-v = View(m)
 c = Controller(m)
+v = View(c, m)
+m.setView(v)
+
 while c.keep_going:
     c.update()
     m.update()
