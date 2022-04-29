@@ -75,13 +75,11 @@ class Link(Sprite):
             for i in range(40):
                 self.images.append(self.model.getView().loadImage("images/link" + str(i) + ".png"))
 
-        # g.drawImage(self.images[self.direction], self.x + self.model.getScrollPosX(),
-        #             self.y + self.model.getScrollPosY())
         self.rect = self.images[self.direction].get_rect()
-        self.rect.x = self.x
-        self.rect.y = self.y
-
+        self.rect.x = self.x + self.model.getScrollPosX()
+        self.rect.y = self.y + self.model.getScrollPosY()
         g.blit(self.images[self.direction], self.rect)
+
         # Handle link's animation loop
         if self.direction == 9 or (
                 self.direction % 10) == 9:  # If direction is 9, 19, 29, or 39 then reset link back to first direction stance else increment the animation
@@ -95,7 +93,7 @@ class Link(Sprite):
     def update(self):
         # Handle link's movement
         # Images 0 - 9 are down, 10 - 19 are left, 20 - 29 are up, 30 - 39 are right
-        # console.log(self.model.getView().getController().getKeyRight())
+
         if self.model.getView().getController().getKeyRight():
             if self.direction < 30:
                 self.direction = 30
@@ -114,8 +112,8 @@ class Link(Sprite):
             self.y = self.y + self.speed
 
         if self.rect is not None:
-            self.rect.x = self.x
-            self.rect.y = self.y
+            self.rect.x = self.x + self.model.getScrollPosX()
+            self.rect.y = self.y + self.model.getScrollPosY()
 
         if not (self.model.getScrolling()):  # Debounce to ensure scrolling doesn't glitch back and forth
             if self.x + self.width >= 700 and self.model.getScrollDestX() != -700:  # Scroll right
@@ -191,8 +189,8 @@ class Brick(Sprite):
 
     def update(self):
         if self.rect is not None:
-            self.rect.x = self.x
-            self.rect.y = self.y
+            self.rect.x = self.x + self.model.getScrollPosX()
+            self.rect.y = self.y + self.model.getScrollPosY()
         return True
 
     def draw(self, g):  # Draws the brick
@@ -248,10 +246,10 @@ class Pot(Sprite):
                 break
         # Update the current image rectangle position
         if self.rect is not None:
-            self.rect.x = self.x
-            self.rect.y = self.y
-            self.broken_rect.x = self.x
-            self.broken_rect.y = self.y
+            self.rect.x = self.x + self.model.getScrollPosX()
+            self.rect.y = self.y + self.model.getScrollPosY()
+            self.broken_rect.x = self.x + self.model.getScrollPosX()
+            self.broken_rect.y = self.y + self.model.getScrollPosY()
 
         if self.broken:
             self.removeDelay -= 1
@@ -280,15 +278,15 @@ class Pot(Sprite):
 
         if self.broken:  # Draw the pot depending on broken status
             # self.rect = self.images[1].get_rect()
-            self.broken_rect.x = self.x
-            self.broken_rect.y = self.y
+            self.broken_rect.x = self.x + self.model.getScrollPosX()
+            self.broken_rect.y = self.y + self.model.getScrollPosY()
             g.blit(self.images[1], self.broken_rect)
             # g.drawImage(self.images[1], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
             #             self.width, self.height)
         else:
             # self.rect = self.images[0].get_rect()
-            self.rect.x = self.x
-            self.rect.y = self.y
+            self.rect.x = self.x + self.model.getScrollPosX()
+            self.rect.y = self.y + self.model.getScrollPosY()
             g.blit(self.images[0], self.rect)
             # g.drawImage(self.images[0], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
             #             self.width, self.height)
@@ -1023,8 +1021,6 @@ class View:
         self.model = m
         screen_size = (700, 500)
         self.screen = pygame.display.set_mode(screen_size, 32)
-        # self.turtle_image = pygame.image.load("turtle.png")
-        # self.model.rect = self.turtle_image.get_rect()
 
     def loadImage(self, fileName):  # Loads various images
         try:
@@ -1042,14 +1038,6 @@ class View:
         for sprite in sprites:
             sprite.draw(self.screen)
         pygame.display.flip()
-
-    # def paintComponent(self):
-    #     # Manipulate the 700 x500 canvas
-    #     # ctx = self.canvas.getContext("2d")
-    #     # ctx.fillStyle = "aqua"
-    #     # ctx.fillRect(0, 0, 700, 500)
-    #
-    #     sprites = self.model.getSprites() # Utilizing an iterator instead of an index method
 
     # Getters
     def getController(self):
