@@ -343,7 +343,6 @@ class Boomerang(Sprite):
             self.rect.y = self.y + self.model.getScrollPosY()
             self.rect.width = self.width
             self.rect.height = self.height
-            self.rect.inflate(10, 10)
             g.blit(self.images[self.image], self.rect)
 
     def update(self):
@@ -357,7 +356,6 @@ class Boomerang(Sprite):
             self.rect.y = self.y + self.model.getScrollPosY()
             self.rect.width = self.width
             self.rect.height = self.height
-
 
         if self.direction == 0:  # Control how the boomerangs coordinates change depending on direction
             self.x -= self.speed
