@@ -66,15 +66,16 @@ class Link(Sprite):
         self.speed = 10.0
         self.direction = d
         self.model = m
-        self.images = []
+        self.images = [None]
 
     def draw(self, g):
         if self.images[0] is None:  # If link's images have not been loaded, load them in
+            self.images.clear()
             for i in range(40):
                 self.images.append(self.model.getView().loadImage("images/link" + str(i) + ".png"))
 
-        g.drawImage(self.images[self.direction], self.x + self.model.getScrollPosX(),
-                    self.y + self.model.getScrollPosY())
+        # g.drawImage(self.images[self.direction], self.x + self.model.getScrollPosX(),
+        #             self.y + self.model.getScrollPosY())
 
         # Handle link's animation loop
         if self.direction == 9 or (
@@ -1027,42 +1028,42 @@ class Controller:
         self.keep_going = True
 
     # Keyboard control
-    def keyPressed(self, keys):
-        k = keys
-
-        if keys[K_LEFT]:
-            self.keyLeft = True
-        elif keys[K_RIGHT]:
-            self.keyRight = True
-        elif keys[K_UP]:
-            self.keyUp = True
-        elif keys[K_DOWN]:
-            self.keyDown = True
-        elif keys[K_v]: # Toggles debug console messages
-            self.debug = not self.debug
-            print("Toggled debug.")
-
-    def keyReleased(self, keys):
-        k = keys
-
-        if keys[K_LEFT]:
-            self.keyLeft = True
-        elif keys[K_RIGHT]:
-            self.keyRight = True
-        elif keys[K_UP]:
-            self.keyUp = True
-        elif keys[K_DOWN]:
-            self.keyDown = True
-        elif keys[K_v]: # Toggles debug console messages
-            self.debug = not self.debug
-            print("Toggled debug.")
+    # def keyPressed(self, keys):
+    #     k = keys
+    #
+    #     if keys[K_LEFT]:
+    #         self.keyLeft = True
+    #     elif keys[K_RIGHT]:
+    #         self.keyRight = True
+    #     elif keys[K_UP]:
+    #         self.keyUp = True
+    #     elif keys[K_DOWN]:
+    #         self.keyDown = True
+    #     elif keys[K_v]: # Toggles debug console messages
+    #         self.debug = not self.debug
+    #         print("Toggled debug.")
+    #
+    # def keyReleased(self, keys):
+    #     k = keys
+    #
+    #     if keys[K_LEFT]:
+    #         self.keyLeft = True
+    #     elif keys[K_RIGHT]:
+    #         self.keyRight = True
+    #     elif keys[K_UP]:
+    #         self.keyUp = True
+    #     elif keys[K_DOWN]:
+    #         self.keyDown = True
+    #     elif keys[K_v]: # Toggles debug console messages
+    #         self.debug = not self.debug
+    #         print("Toggled debug.")
 
 
 
     def throw_boomerang(self):
         if not(self.model.getScrolling()): # Make sure the model is not scrolling
             b = None
-            l = self.model.getLink();
+            l = self.model.getLink()
             if self.model.getLink().getDirection() <= 9: # Link is facing forward
                 b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 3, self.model)
             elif self.model.getLink().getDirection() >= 10 and self.model.getLink().getDirection() <= 19: # Link is facing left
