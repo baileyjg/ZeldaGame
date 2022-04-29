@@ -320,7 +320,7 @@ class Pot(Sprite):
 
 
 class Boomerang(Sprite):
-    images = []  # Static class variable
+    images = [None]  # Static class variable
 
     def __init__(self, x, y, d, m):
         super(Boomerang, self).__init__(x, y)
@@ -330,20 +330,26 @@ class Boomerang(Sprite):
         self.speed = 15
         self.model = m
         self.image = 0  # Which image is the boomerang currently drawing
+        self.rect = None
 
     def draw(self, g):
         if self.images[0] is None:  # Lazy load the boomerang images
+            self.images.clear()
             for i in range(4):
-                self.images[i] = self.model.getView().loadImage("images/boomerang" + str(i) + ".png")
-
-        g.drawImage(self.images[self.image], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
-                    self.width, self.height)
+                self.images.append(self.model.getView().loadImage("images/boomerang" + str(i) + ".png"))
+                self.rect = self.images[0].get_rect()
+                self.rect.x = self.x + self.model.getScrollPosX()
+                self.rect.y = self.y + self.model.getScrollPosY()
 
     def update(self):
         if self.image != 3:  # Increment the direction each update to animate the boomerang
             self.image += 1
         else:
             self.image = 0
+        if self.rect is not None:
+            self.rect = self.images[self.image].get_rect()  # Set the rectangle to the current image
+            self.rect.x = self.x + self.model.getScrollPosX()
+            self.rect.y = self.y + self.model.getScrollPosY()
 
         if self.direction == 0:  # Control how the boomerangs coordinates change depending on direction
             self.x -= self.speed
@@ -1084,6 +1090,8 @@ class Controller:
                     self.keyUp = True
                 elif event.key == K_DOWN:
                     self.keyDown = True
+                elif event.key == K_LCTRL:
+                    self.throw_boomerang()
                 elif event.key == K_v:
                     self.debug = not self.debug
                     print("Toggled debug")
