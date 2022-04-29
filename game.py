@@ -78,6 +78,8 @@ class Link(Sprite):
         # g.drawImage(self.images[self.direction], self.x + self.model.getScrollPosX(),
         #             self.y + self.model.getScrollPosY())
         self.rect = self.images[self.direction].get_rect()
+        self.rect.x = self.x
+        self.rect.y = self.y
 
         g.blit(self.images[self.direction], self.rect)
         # Handle link's animation loop
@@ -123,7 +125,7 @@ class Link(Sprite):
 
         for i in range(len(self.model.getSprites())):  # Iterate over the sprites checking for collisions
             if self.model.getSprites()[i].isLink():  # Do not allow link to collide with himself
-                pass
+                continue
             if self.model.doesCollide(self, self.model.getSprites()[i]):
                 p = None
                 if self.model.getSprites()[i].isBrick():
@@ -148,7 +150,8 @@ class Link(Sprite):
         self.pY = self.y
 
     def toString(self):
-        return "Link (x, y, width, height) = (" + str(self.x) + ", " + str(self.y) + ", " + str(self.width) + ", " + str(self.height) + ")"
+        return "Link (x, y, width, height) = (" + str(self.x) + ", " + str(self.y) + ", " + str(
+            self.width) + ", " + str(self.height) + ")"
 
     def isLink(self):
         return True
@@ -183,20 +186,23 @@ class Brick(Sprite):
         return False
 
     def update(self):
-        # Do nothing
+        if self.rect is not None:
+            self.rect.x = self.x
+            self.rect.y = self.y
         return True
 
     def draw(self, g):  # Draws the brick
         if self.image is None:
             self.image = self.model.getView().loadImage("images/brick.jpg")
+            self.rect = self.image.get_rect()
         # g.drawImage(self.image, self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width,
         #             self.height)
 
-        self.rect = self.image.get_rect()
         g.blit(self.image, self.rect)
 
     def toString(self):
-        return "Brick (x, y, width, height) = (" + str(self.x) + ", " + str(self.y) + ", " + str(self.width) + ", " + str(self.height) + ")"
+        return "Brick (x, y, width, height) = (" + str(self.x) + ", " + str(self.y) + ", " + str(
+            self.width) + ", " + str(self.height) + ")"
 
     def isBrick(self):
         return True
@@ -214,7 +220,8 @@ class Pot(Sprite):
         self.removeDelay = 30
         self.collisionOffset = 12
         self.speed = 15
-        self.rect = None
+        self.rect = None  # Holds the rectangle for the non-broken image
+        self.broken_rect = None  # Holds the rectangle for the broken image
 
     def update(self):  # Communicates to model when to remove the pot
         for i in range(len(self.model.getSprites())):
@@ -235,6 +242,12 @@ class Pot(Sprite):
                     print("Invalid brick/pot collision!")
                 self.broken = True
                 break
+        # Update the current image rectangle position
+        if self.rect is not None:
+            self.rect.x = self.x
+            self.rect.y = self.y
+            self.broken_rect.x = self.x
+            self.broken_rect.y = self.y
 
         if self.broken:
             self.removeDelay -= 1
@@ -257,15 +270,21 @@ class Pot(Sprite):
         if self.images[0] is None:
             self.images.clear()
             self.images.append(self.model.getView().loadImage("images/pot.png"))
+            self.rect = self.images[0].get_rect()
             self.images.append(self.model.getView().loadImage("images/pot_broken.png"))
+            self.broken_rect = self.images[1].get_rect()
 
         if self.broken:  # Draw the pot depending on broken status
-            self.rect = self.images[1].get_rect()
-            g.blit(self.images[1], self.rect)
+            # self.rect = self.images[1].get_rect()
+            self.broken_rect.x = self.x
+            self.broken_rect.y = self.y
+            g.blit(self.images[1], self.broken_rect)
             # g.drawImage(self.images[1], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
             #             self.width, self.height)
         else:
-            self.rect = self.images[0].get_rect()
+            # self.rect = self.images[0].get_rect()
+            self.rect.x = self.x
+            self.rect.y = self.y
             g.blit(self.images[0], self.rect)
             # g.drawImage(self.images[0], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
             #             self.width, self.height)
@@ -287,7 +306,8 @@ class Pot(Sprite):
         return False
 
     def toString(self):
-        return "Pot (x, y, width, height) = (" + x + ", " + y + ", " + width + ", " + height + ")"
+        return "Pot (x, y, width, height) = (" + str(self.x) + ", " + str(self.y) + ", " + str(self.width) + ", " + str(
+            self.height) + ")"
 
     def isPot(self):
         return True
@@ -298,7 +318,7 @@ class Pot(Sprite):
 
 
 class Boomerang(Sprite):
-    images = []
+    images = []  # Static class variable
 
     def __init__(self, x, y, d, m):
         super(Boomerang, self).__init__(x, y)
@@ -318,12 +338,12 @@ class Boomerang(Sprite):
                     self.width, self.height)
 
     def update(self):
-        if self.image != 3: # Increment the direction each update to animate the boomerang
+        if self.image != 3:  # Increment the direction each update to animate the boomerang
             self.image += 1
         else:
             self.image = 0
 
-        if self.direction == 0: # Control how the boomerangs coordinates change depending on direction
+        if self.direction == 0:  # Control how the boomerangs coordinates change depending on direction
             self.x -= self.speed
         elif self.direction == 1:
             self.x += self.speed
@@ -332,13 +352,14 @@ class Boomerang(Sprite):
         elif self.direction == 3:
             self.y += self.speed
 
-        for i in range(len(self.model.getSprites())): # Check for a boomerang / pot collision
+        for i in range(len(self.model.getSprites())):  # Check for a boomerang / pot collision
             p = None
             if self.model.getSprites()[i].isPot() and self.model.doesCollide(self, self.model.getSprites()[i]):
                 p = self.model.getSprites()[i]
                 p.setBroken(True)
                 return False
-            elif self.model.getSprites()[i].isBrick() and self.model.doesCollide(self, self.model.getSprites()[i]): # Brick / boomerang collision
+            elif self.model.getSprites()[i].isBrick() and self.model.doesCollide(self, self.model.getSprites()[
+                i]):  # Brick / boomerang collision
                 return False
 
         return True
@@ -347,7 +368,8 @@ class Boomerang(Sprite):
         return True
 
     def toString(self):
-        return "Boomerang (x, y, width, height) = (" + str(self.x) + ", " + str(self.y) + ", " + str(self.width) + ", " + str(self.height) + ")"
+        return "Boomerang (x, y, width, height) = (" + str(self.x) + ", " + str(self.y) + ", " + str(
+            self.width) + ", " + str(self.height) + ")"
 
     # Setters
     def setDirection(self, d):
@@ -355,14 +377,14 @@ class Boomerang(Sprite):
 
 
 class Model:
-    def __init__(self): # Default constructor
+    def __init__(self):  # Default constructor
         self.sprites = []
         self.link = None
         self.brick = None
         self.pot = None
-        self.createObjects() # Creates all hardcoded objects
+        self.createObjects()  # Creates all hardcoded objects
 
-        self.scrolling = False # Boolean to indicate whether the map is still scrolling to its destination
+        self.scrolling = False  # Boolean to indicate whether the map is still scrolling to its destination
         self.scrollSpeed = 60
         self.scrollPosX = 0
         self.scrollPosY = 0
@@ -893,14 +915,14 @@ class Model:
         self.pot = Pot(827, 430, self)
         self.sprites.append(self.pot)
 
-    def update(self): # Update the model
-        for i in range(len(self.sprites)): # Update all sprites
-            if self.sprites[i].isLink(): # If the sprite is a link save his previous location for collision calculations
+    def update(self):  # Update the model
+        for i in range(len(self.sprites)):  # Update all sprites
+            if self.sprites[i].isLink():  # Save Link's previous location
                 self.link.savePreviousLocation()
             if not (self.sprites[i].update()):
-                self.sprites.pop(i) # Remove sprites when they return a false update
+                self.sprites.pop(i)  # Remove sprites when they return a false update
 
-        if self.scrollPosX == self.scrollDestX and self.scrollPosY == self.scrollDestY: # Checks if the map is still scrolling
+        if self.scrollPosX == self.scrollDestX and self.scrollPosY == self.scrollDestY:  # Checks if the map is still scrolling
             self.scrolling = False
         else:
             self.scrolling = True
@@ -915,30 +937,30 @@ class Model:
             else:
                 self.scrollPosY -= min(self.scrollSpeed, self.scrollPosY - self.scrollDestY)
 
-    def doesCollide(self, spriteOne, spriteTwo): # Check for a collision between two sprites
+    def doesCollide(self, sprite_one, sprite_two):  # Check for a collision between two sprites
         # Check if link is not colliding
-        if spriteOne.getX() + spriteOne.getWidth() <= spriteTwo.getX():
+        if sprite_one.getX() + sprite_one.getWidth() <= sprite_two.getX():
             return False
-        if spriteOne.getX() >= spriteTwo.getX() + spriteTwo.getWidth():
+        if sprite_one.getX() >= sprite_two.getX() + sprite_two.getWidth():
             return False
-        if spriteOne.getY() >= spriteTwo.getY() + spriteTwo.getHeight():
+        if sprite_one.getY() >= sprite_two.getY() + sprite_two.getHeight():
             return False
-        if spriteOne.getY() + spriteOne.getHeight() <= spriteTwo.getY():
+        if sprite_one.getY() + sprite_one.getHeight() <= sprite_two.getY():
             return False
 
         # Otherwise the sprites are colliding
         if self.controller.debug:
             print("Sprite collision detected!")
-            print(spriteOne)
-            print(spriteTwo)
+            print(sprite_one)
+            print(sprite_two)
         return True
 
-    def addSprite(self, s): # Add a sprite to the above array
+    def addSprite(self, s):  # Add a sprite to the above array
         self.sprites.append(s)
         if self.controller.debug:
             print("Added " + s.toString())
 
-    def removeSprite(self, i): # Remove a sprite from the above array
+    def removeSprite(self, i):  # Remove a sprite from the above array
         self.sprites.pop(i)
 
     # Getters
@@ -990,6 +1012,7 @@ class Model:
         self.scrollDestX = x
         self.scrollDestY = y
 
+
 class View:
     def __init__(self, c, m):
         self.controller = c
@@ -999,7 +1022,7 @@ class View:
         # self.turtle_image = pygame.image.load("turtle.png")
         # self.model.rect = self.turtle_image.get_rect()
 
-    def loadImage(self, fileName): # Loads various images
+    def loadImage(self, fileName):  # Loads various images
         try:
             image = pygame.image.load(fileName)
             if self.controller.debug:
@@ -1023,7 +1046,6 @@ class View:
     #     # ctx.fillRect(0, 0, 700, 500)
     #
     #     sprites = self.model.getSprites() # Utilizing an iterator instead of an index method
-
 
     # Getters
     def getController(self):
@@ -1072,19 +1094,17 @@ class Controller:
     #         self.debug = not self.debug
     #         print("Toggled debug.")
 
-
-
     def throw_boomerang(self):
-        if not(self.model.getScrolling()): # Make sure the model is not scrolling
+        if not (self.model.getScrolling()):  # Make sure the model is not scrolling
             b = None
             l = self.model.getLink()
-            if self.model.getLink().getDirection() <= 9: # Link is facing forward
+            if self.model.getLink().getDirection() <= 9:  # Link is facing forward
                 b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 3, self.model)
-            elif self.model.getLink().getDirection() >= 10 and self.model.getLink().getDirection() <= 19: # Link is facing left
+            elif self.model.getLink().getDirection() >= 10 and self.model.getLink().getDirection() <= 19:  # Link is facing left
                 b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 0, self.model)
-            elif self.model.getLink().getDirection() >= 20 and self.model.getLink().getDirection() <= 29: # Link is facing backwards
+            elif self.model.getLink().getDirection() >= 20 and self.model.getLink().getDirection() <= 29:  # Link is facing backwards
                 b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 2, self.model)
-            else: # Link is facing right
+            else:  # Link is facing right
                 b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 1, self.model)
             self.model.addSprite(b)
 
@@ -1103,6 +1123,9 @@ class Controller:
                     self.keyUp = True
                 elif event.key == K_DOWN:
                     self.keyDown = True
+                elif event.key == K_v:
+                    self.debug = not self.debug
+                    print("Toggled debug")
             elif event.type == KEYUP:
                 if event.key == K_LEFT:
                     self.keyLeft = False
@@ -1137,6 +1160,7 @@ class Controller:
 
     def getKeyDown(self):
         return self.keyDown
+
 
 # class Game
 #     {
