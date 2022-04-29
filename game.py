@@ -27,7 +27,7 @@ class Sprite:
         return False
 
     def isLink(self):
-        return false
+        return False
 
     def isPot(self):
         return False
@@ -58,7 +58,7 @@ class Sprite:
 
 class Link(Sprite):
     def __init__(self, x, y, d, m):
-        super(x, y)
+        super(Link, self).__init__(x, y)
         self.pX = 0
         self.pY = 0
         self.width = 68
@@ -166,7 +166,7 @@ class Link(Sprite):
 
 class Brick(Sprite):
     def __init__(self, x, y, m):
-        super(x, y)
+        super(Brick, self).__init__(x, y)
         self.image = None
         self.model = m
         self.width = 50
@@ -196,7 +196,7 @@ class Brick(Sprite):
 
 class Pot(Sprite):
     def __init__(self, x, y, m):  # Default constructor
-        super(x, y)
+        super(Pot, self).__init__(x, y)
         self.width = 40
         self.height = 40
         self.images = []
@@ -287,7 +287,7 @@ class Boomerang(Sprite):
     images = []
 
     def __init__(self, x, y, d, m):
-        super(x, y)
+        super(Boomerang, self).__init__(x, y)
         self.width = 16
         self.height = 24
         self.direction = d
@@ -341,7 +341,7 @@ class Boomerang(Sprite):
 
 
 class Model:
-    def __init__(self, c): # Default constructor
+    def __init__(self): # Default constructor
         self.sprites = []
         self.link = None
         self.brick = None
@@ -356,6 +356,7 @@ class Model:
         self.scrollDestY = 0
         self.roomSizeX = 700
         self.roomSizeY = 500
+        self.controller = None
 
     def createObjects(self):
         # Create Hardcoded Link
@@ -897,7 +898,7 @@ class Model:
 
             if self.scrollPosY < self.scrollDestY:
                 self.scrollPosY += min(self.scrollSpeed, self.scrollDestY - self.scrollPosY)
-            else
+            else:
                 self.scrollPosY -= min(self.scrollSpeed, self.scrollPosY - self.scrollDestY)
 
     def doesCollide(self, spriteOne, spriteTwo): # Check for a collision between two sprites
@@ -1223,6 +1224,7 @@ print("Use the arrow keys to move. Press Esc to quit.")
 pygame.init()
 m = Model()
 c = Controller(m)
+m.setController(c)
 v = View(c, m)
 m.setView(v)
 
