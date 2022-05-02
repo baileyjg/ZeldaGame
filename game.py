@@ -1087,6 +1087,8 @@ class Controller:
             elif event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     self.keep_going = False
+                elif event.key == K_q:
+                    self.keep_going = False
                 elif event.key == K_LEFT:
                     self.keyLeft = True
                 elif event.key == K_RIGHT:
