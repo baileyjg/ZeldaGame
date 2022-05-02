@@ -1,3 +1,6 @@
+# Bailey Grimes
+# This program implements a zelda-type game including collision, bricks, pots, and boomerangs
+
 import pygame
 import time
 
