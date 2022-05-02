@@ -82,7 +82,7 @@ class Link(Sprite):
 
         # Handle link's animation loop
         if self.direction == 9 or (
-                self.direction % 10) == 9:  # If direction is 9, 19, 29, or 39 then reset link back to first direction stance else increment the animation
+                self.direction % 10) == 9:  # If direction is 9, 19, 29, or 39 then reset link to idle
             self.direction -= 9
         elif self.model.getView().getController().getKeyRight() or self.model.getView().getController().getKeyLeft() or self.model.getView().getController().getKeyUp() or self.model.getView().getController().getKeyDown():  # Increment direction image if keys are down
             self.direction += 1
@@ -138,13 +138,13 @@ class Link(Sprite):
         return True
 
     def brickCollisionDetected(self, b):  # Fix link's position if he is colliding with a brick sprite
-        if self.y + self.height >= b.getY() and self.pY <= b.getY() and self.direction <= 9:  # Toe collision
+        if self.y + self.height >= b.getY() >= self.pY and self.direction <= 9:  # Toe collision
             self.setY(b.getY() - self.height - 1)
-        if self.x <= b.getX() + b.getWidth() and self.pX >= b.getX() + b.getWidth() and self.direction <= 19 and self.direction > 9:  # Left collision
+        if self.x <= b.getX() + b.getWidth() <= self.pX and 19 >= self.direction > 9:  # Left collision
             self.setX(b.getX() + b.getWidth() + 1)
-        if self.y <= b.getY() + b.getHeight() and self.pY >= b.getY() + b.getHeight() and self.direction <= 29 and self.direction > 19:  # Head collision
+        if self.y <= b.getY() + b.getHeight() <= self.pY and 29 >= self.direction > 19:  # Head collision
             self.setY(b.getY() + b.getHeight() + 1)
-        if self.x + self.width >= b.getX() and self.pX <= b.getX() and self.direction <= 39 and self.direction > 29:  # Right collision
+        if self.x + self.width >= b.getX() >= self.pX and 39 >= self.direction > 29:  # Right collision
             self.setX(b.getX() - self.width - 1)
 
     def savePreviousLocation(self):
@@ -292,7 +292,7 @@ class Pot(Sprite):
             #             self.width, self.height)
 
     def linkCollisionDetected(self, l):  # Determine where the pot should slide based on link collision
-        if self.direction == 0 and not self.broken:  # Check if the pot has already been collided with or broken by a boomerang
+        if self.direction == 0 and not self.broken:  # Check if the pot has already been collided with
             if l.getDirection() <= 9:  # Toe collision
                 self.direction = 4
             elif l.getDirection() >= 10 and l.getDirection() <= 19:  # Left collision
@@ -372,8 +372,7 @@ class Boomerang(Sprite):
                 p = self.model.getSprites()[i]
                 p.setBroken(True)
                 return False
-            elif self.model.getSprites()[i].isBrick() and self.model.doesCollide(self, self.model.getSprites()[
-                i]):  # Brick / boomerang collision
+            elif self.model.getSprites()[i].isBrick() and self.model.doesCollide(self, self.model.getSprites()[i]):
                 return False
 
         return True
@@ -936,7 +935,7 @@ class Model:
             if not (i.update()):
                 self.sprites.remove(i)  # Remove sprites when they return a false update
 
-        if self.scrollPosX == self.scrollDestX and self.scrollPosY == self.scrollDestY:  # Checks if the map is still scrolling
+        if self.scrollPosX == self.scrollDestX and self.scrollPosY == self.scrollDestY:  # Checks for scrolling
             self.scrolling = False
         else:
             self.scrolling = True
@@ -1073,9 +1072,9 @@ class Controller:
             l = self.model.getLink()
             if self.model.getLink().getDirection() <= 9:  # Link is facing forward
                 b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 3, self.model)
-            elif self.model.getLink().getDirection() >= 10 and self.model.getLink().getDirection() <= 19:  # Link is facing left
+            elif 10 <= self.model.getLink().getDirection() <= 19:
                 b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 0, self.model)
-            elif self.model.getLink().getDirection() >= 20 and self.model.getLink().getDirection() <= 29:  # Link is facing backwards
+            elif 20 <= self.model.getLink().getDirection() <= 29:
                 b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 2, self.model)
             else:  # Link is facing right
                 b = Boomerang(l.getX() + l.getWidth() / 2, l.getY() + l.getHeight() / 2, 1, self.model)
