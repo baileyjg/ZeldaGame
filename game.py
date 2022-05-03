@@ -171,10 +171,6 @@ class Link(Sprite):
     def getPY(self):
         return self.pY
 
-    # Setters
-    def set_direction(self, d):
-        self.direction = d
-
 
 class Brick(Sprite):
     def __init__(self, x, y, m):
@@ -1135,7 +1131,7 @@ class Controller:
         return self.keyDown
 
 
-print("Use the arrow keys to move. Press Esc to quit.")
+print("Use the arrow keys to move. Press Esc or Q to quit.")
 pygame.init()
 m = Model()
 c = Controller(m)
