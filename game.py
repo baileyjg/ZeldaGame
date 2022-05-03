@@ -292,9 +292,9 @@ class Pot(Sprite):
         if self.direction == 0 and not self.broken:  # Check if the pot has already been collided with
             if l.getDirection() <= 9:  # Toe collision
                 self.direction = 4
-            elif l.getDirection() >= 10 and l.getDirection() <= 19:  # Left collision
+            elif 10 <= l.getDirection() <= 19:  # Left collision
                 self.direction = 1
-            elif l.getDirection() >= 20 and l.getDirection() <= 29:  # Head collision
+            elif 20 <= l.getDirection() <= 29:  # Head collision
                 self.direction = 3
             elif l.getDirection() >= 30:  # Right collision
                 self.direction = 2
