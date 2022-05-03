@@ -200,8 +200,6 @@ class Brick(Sprite):
         if self.image is None:
             self.image = self.model.getView().loadImage("images/brick.jpg")
             self.rect = self.image.get_rect()
-        # g.drawImage(self.image, self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(), self.width,
-        #             self.height)
 
         g.blit(self.image, self.rect)
 
@@ -284,15 +282,11 @@ class Pot(Sprite):
             self.broken_rect.x = self.x + self.model.getScrollPosX()
             self.broken_rect.y = self.y + self.model.getScrollPosY()
             g.blit(self.images[1], self.broken_rect)
-            # g.drawImage(self.images[1], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
-            #             self.width, self.height)
         else:
             # self.rect = self.images[0].get_rect()
             self.rect.x = self.x + self.model.getScrollPosX()
             self.rect.y = self.y + self.model.getScrollPosY()
             g.blit(self.images[0], self.rect)
-            # g.drawImage(self.images[0], self.x + self.model.getScrollPosX(), self.y + self.model.getScrollPosY(),
-            #             self.width, self.height)
 
     def linkCollisionDetected(self, l):  # Determine where the pot should slide based on link collision
         if self.direction == 0 and not self.broken:  # Check if the pot has already been collided with
