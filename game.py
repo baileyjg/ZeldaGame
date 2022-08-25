@@ -8,7 +8,7 @@ from pygame.locals import *
 from time import sleep
 
 
-class Sprite: #Test
+class Sprite:
     def __init__(self, x, y):
         self.x = x
         self.y = y
